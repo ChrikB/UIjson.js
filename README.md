@@ -126,7 +126,7 @@ So how it works:
 **a)** You define some properties in configuration or using defineProp( .. ) method. The objects you use to define them including some other properties are the Dataholder Objects of UIjson.js.
 All dataholder Objects are stored in Dataholders array of UIjson Instance.
 
-**b)** You import some Objects using _Objects in configuration or using ImportObject( .. ) method. Lets say you import the object var AA = { };
+**b)** You import some Objects using _Objects in configuration or using ImportObject( .. ) method. Lets say you import the object var **AA = { };**
 Once imported , AA will be converted to UIjson Objectand can be used from UIjson methods and events. 
 Below you can see how UIjson Objects look like :
 
