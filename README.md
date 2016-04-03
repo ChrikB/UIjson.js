@@ -149,14 +149,6 @@ All properties of AA will be compared by name and path with the defined Datahold
 
 **d)** Now everytime AA is going to be rendered, some objects of UIjson_Object.dataholders array will have "elements" property filled with some Jquery Selectors.
 
-## Tests
-
-Describe and show how to run the tests with code examples.
-
-## Contributors
-
-Let people know how they can dive into the project, include important links to things like issue trackers, irc, twitter accounts if applicable.
-
 ## License
 
-A short snipp
+UIjson.js Copyright © Chris_B
