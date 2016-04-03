@@ -15,12 +15,30 @@ A short description of the motivation behind the creation and maintenance of the
 First you need to include following files in head of your page for bootstrap,Jquery
 
 ### a) Include files in &lt;head&gt;&lt;/head&gt;
+```html
+<script src="http://code.jquery.com/jquery-2.2.0.min.js" type="text/javascript"></script> 
+<script src="js/jquery-ui.min.js"></script>  
+<script src="js/bootstrap.min.js" type="text/javascript"></script> 
 
-<pre>&lt;head&gt; <br> .. .. <br>&lt;script src="http://code.jquery.com/jquery-2.2.0.min.js" type="text/javascript"&gt;&lt;/script&gt; <br>&lt;script src="js/jquery-ui.min.js"&gt;&lt;/script&gt;  <br>&lt;script src="js/bootstrap.min.js" type="text/javascript"&gt;&lt;/script&gt; <br><br>&lt;link rel="stylesheet" href="css/bootstrap.css"&gt;<br>&lt;script src="UIjson.js"&gt;&lt;/script&gt;<br> .. ..				 <br>&lt;/head&gt;</pre>
+<link rel="stylesheet" href="css/bootstrap.css">
+<script src="UIjson.js"></script>
+			 
+```
 
 ### b) Understanding Dataholders
 
-The main subject of UIjson are the properties which hold data.These 'dataholder' properties can have value of type string,number,boolean or an array of these types.See <span style="color:red;">dataholders</span> of 'example' in <span style="color:red;">RED</span> highlight. These are the properties which can be handled by UIjson. <span style="color:blue;">Blue properties</span> will be <span style="color:blue;">Ignored</span>
+The main subject of UIjson are the properties which hold data.These 'dataholder' properties can have value of type string,number,boolean or an array of these types.See <span style="color:red;">dataholders</span> of 'example' in RED highlight. These are the properties which can be handled by UIjson. Blue properties will be Ignored
+<pre>
+var example  = {
+       <span class="p_dataholders">name</span>      : "Julian",
+       <span class="p_dataholders">age</span>       : "20",
+       <span class="p_dataholders">country</span>   : "USA",
+       <span class="p_dataholders">past_jobs</span> : ["Philips","ikea","apple","microsoft"],
+       <span class="n_dataholders">children</span>  : [ {<span class="p_dataholders">name</span>:""},{<span class="p_dataholders">name</span>:""} ],
+       <span class="n_dataholders">job</span>       : {}
+};								
+								</pre>
+
 
 ## API Reference
 
