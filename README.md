@@ -1,14 +1,16 @@
 # UIjson.js
 
-A tool to do a lot
+Objects in Bootstrap Interface 
 
 ## What is UIjson.js
 
-## Example
+UIjson.js is a plugin written in Jquery which uses Bootstrap's classes to render properties of Objects and their values to predefined HTML elements.
+
+It is dependant from jquery and bootstrap
 
 ## Motivation
 
-A short description of the motivation behind the creation and maintenance of the project. This should explain **why** the project exists.
+Most of the times in programming we have the need to output data of different types, which are just declared somewhere or they come from a process.Here comes the question of how we will represent them to the end user,in which format and how to manipulate the free space.Here UIjson.js came out.UIjson.js is a jquery plug-in which offers some predefined ways to render,edit and create data from JSON models.It makes use of most popular HTML, CSS, framework: BOOTSTRAP for interface and Javascript,Jquery for functionality.A lot of people love Boostrap because it makes them to not worry about cross browser/platform css compability issues. So since UIjson is expandable, to ensure future compability I decided to use it here to keep you still free of worries. For the same reason I used Jquery.Both have great support, years of life ,great documentations , stability and many places to ask if you need any help. .
 
 ## Configuration
 
