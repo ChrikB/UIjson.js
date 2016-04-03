@@ -141,11 +141,11 @@ path        : ""         // comes from user's definition
 ```
 All UIjson Objects exist in _Objects array of the Instance.
 
-.3  Filling UIjson_Object.dataholders array. 
+3. Filling UIjson_Object.dataholders array. 
 
 All properties of AA will be compared by name and path with the defined Dataholders.Matches will be pushed to UIjson_Object.dataholders array
 
-.4 Now everytime AA is going to be rendered, some objects of UIjson_Object.dataholders array will have "elements" property filled with some Jquery Selectors.
+4. Now everytime AA is going to be rendered, some objects of UIjson_Object.dataholders array will have "elements" property filled with some Jquery Selectors.
 
 ## Tests
 
