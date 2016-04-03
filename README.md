@@ -29,7 +29,7 @@ First you need to include following files in head of your page for bootstrap,Jqu
 
 The main subject of UIjson are the properties which hold data.These 'dataholder' properties can have value of type string,number,boolean or an array of these types. Other properties will be ignored.
 
-<pre>
+```json
 var example  = {
        name      : "Julian",
        age       : "20",
@@ -38,7 +38,7 @@ var example  = {
        children  : [ {name:""},{name:""} ],
        job       : {}
 };								
-								</pre>
+```
 Properties : **job** and **childen** of example are not dataholder - properties because their values are not strings
 
 ### c) Defining Dataholder properties
