@@ -27,18 +27,54 @@ First you need to include following files in head of your page for bootstrap,Jqu
 
 ### b) Understanding Dataholders
 
-The main subject of UIjson are the properties which hold data.These 'dataholder' properties can have value of type string,number,boolean or an array of these types.See <span style="color:red;">dataholders</span> of 'example' in RED highlight. These are the properties which can be handled by UIjson. Blue properties will be Ignored
+The main subject of UIjson are the properties which hold data.These 'dataholder' properties can have value of type string,number,boolean or an array of these types. Other properties will be ignored.
+
 <pre>
 var example  = {
-       <span class="p_dataholders">name</span>      : "Julian",
-       <span class="p_dataholders">age</span>       : "20",
-       <span class="p_dataholders">country</span>   : "USA",
-       <span class="p_dataholders">past_jobs</span> : ["Philips","ikea","apple","microsoft"],
-       <span class="n_dataholders">children</span>  : [ {<span class="p_dataholders">name</span>:""},{<span class="p_dataholders">name</span>:""} ],
-       <span class="n_dataholders">job</span>       : {}
+       name      : "Julian",
+       age       : "20",
+       country   : "USA",
+       past_jobs : ["Philips","ikea","apple","microsoft"],
+       children  : [ {name:""},{name:""} ],
+       job       : {}
 };								
 								</pre>
+Properties : **job** and **childen** of example are not dataholder - properties because their values are not strings
 
+### c) Defining Dataholder properties
+
+To configure UIjson you will need to define a dataholder object for each property you want to import. Undefined properties will not be removed as they are part of your model, but you will not able to render or edit them.They will be ignored from all UIjson's functionality.
+
+```html
+//To define a dataholder Object you need at least to set these 2 properties, 'property' and 'assignTo'
+
+var dataHolder = { 
+
+   property:"name" , 
+   assignTo:"input_field" 
+};
+
+//And here the full options of dataholder Object
+
+var dataHolder = { 
+
+   property  :"name" ,        // the property
+   path      : "",            // Path may be used when you add a nested object which is part of a bigger instance, to separate this dataholder from others if they have same properties.
+   assignTo  :"input_field"   // How this property will be rendered in HTML.There a list of UI types in code architecture section of documentation.
+   tabName   :"Bio"  ,        // Default tab is 'General'. Only if tab with label 'Bio' is active you will be able to see the UI element for this property.
+   label     :"Person's Name" // Label text goes to 'control-label' element of bootstrap.
+   options   :[],             // Options required if assignTo is "select_list", "radio" or "checkbox"
+   arrEach   : false,         // If true means that if the value of the object is an array of strings,each element of the array will be a seperate UI element in HTML
+   array_Api : {              // It has meaning only if arrEach = true 
+   
+                sortable : true ,   // If true You can sort elements. This requires jquery-ui.
+                add      : true ,   // If true You can add new elements by clicking a symbol.
+                remove   : true     // If true You can remove an UI element from the array by clicking a symbol.
+				
+   }  
+};
+
+```
 
 ## API Reference
 
