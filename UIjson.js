@@ -996,8 +996,8 @@
 													    el.find("input").off( "change", UIjsonInstance.Obj_PropUpdate    );
 						                           
 			        }														
-    	 },
-	      thumbnail      : {
+    	},
+	thumbnail      : {
 			   
 			         _HTML       :  '<div class="col-md-2 col-lg-2 col-sm-2  UIjson_el">' 
                                      +   '<div class = "thumbnail">'
@@ -1027,8 +1027,8 @@
 													  el.find("input").off( "change", UIjsonInstance.Obj_PropUpdate    );
 						                           
 				}														 
-		   },
-	       blockquote     : {
+        },
+	blockquote     : {
 			         _HTML    : '<blockquote class="col-md-6 col-lg-6 col-sm-6 UIjson_el"><label  class="control-label main_label"></label><p></p></blockquote>',
 						 _target   : function( _HTML ){ return _HTML.find("p").eq(0);   },							 
 				Val_Method : function( _HTML , value ){  
@@ -1040,7 +1040,7 @@
 													  }
 			        }
 
-		   }		   
+        }		   
 	   
    };
 	
