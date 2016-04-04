@@ -197,7 +197,7 @@
 
 								     }					                  
 				 }, 
-			     propTab   : function( dtObj , tabName ){
+			         propTab   : function( dtObj , tabName ){
 					 
 					                var	TAB_OBJ; 
 									if( $.type(tabName)!=="undefined" ){
@@ -283,7 +283,7 @@
 																       
 							   
 				 },				      
-                 getProp         : function( str , path ){ 
+                                 getProp         : function( str , path ){ 
          
             			                var THAT = this,propObj = false;
             							    if( $.type(str) === "string" ){ 
@@ -305,7 +305,7 @@
             
             							 return propObj;
          							 
-         		 },		 
+         		         },		 
 				 ImportObject  : function( obj , path ){ 
 					 
 					                    var newObject = new $.UIjson.Obj( obj , path );
@@ -314,7 +314,7 @@
 										
 										this.Element.trigger("ImportObject.UIjson", [ newObject ]);
 				 },
-                 getUIjsonObj : function( ob ){
+                                 getUIjsonObj : function( ob ){
 					                    var UIob = false;
 					                    $( this._Objects ).each(function( i , UIjsonObj ){
 											
@@ -325,7 +325,7 @@
 										return UIob;
 					 
 				 },				 
-                 Obj_Delete	 : function( UIjsonObj ){
+                                 Obj_Delete	 : function( UIjsonObj ){
 					 
 					                    var THAT = this;
 	                                    $(this._Objects).each(function( i , obj ){
@@ -338,7 +338,7 @@
 										});				 
 					 
 				 },
-                 Obj_DeleteAll : function(){
+                                 Obj_DeleteAll : function(){
 					 
 					                    var THAT = this;
 	                                    $(this._Objects).each(function( i , obj ){
@@ -351,7 +351,7 @@
 										});				 
 					 
 				 },				 
-                 Obj_Elements : function( UIjsonObj , propName ){
+                                 Obj_Elements : function( UIjsonObj , propName ){
 					 
 					                    var u , k , ObjDataholders = UIjsonObj.dataholders , all_Elements = [];
 
@@ -462,7 +462,7 @@
 					                       this.Obj_Render( UIjsonObj );
 					 
 				 },
-                 Obj_Render     : function( UIjsonObj ){
+                                 Obj_Render     : function( UIjsonObj ){
 					 
                                            var path = UIjsonObj.path || "";		
 										   
