@@ -6,9 +6,9 @@
    $.UIjson  = {
 
                          version           : "v1.0.0.0",
-                         bootstrap_version : "",
-                         jquery_version    : "",
-                         jquery_ui_version : ""
+                         bootstrap_version : "3",
+                         jquery_version    : "2.2",
+                         jquery_ui_version : "v1.11.4"
    };
 
    $.UIjson.defaults = {
@@ -22,14 +22,14 @@
 						 dataHolder : {
 						                     tabName    : "General" ,
 						                     path       : false     ,
-							                 label      : "&nbsp"   ,
-							                 arrEach    : false     ,
-											 options    : false     ,
-											 array_Api  : {
-											                sortable : true ,
-															add      : true ,
-															remove   : true
-											}
+							             label      : "&nbsp"   ,
+							             arrEach    : false     ,
+								     options    : false     ,
+								     array_Api  : {
+										     sortable : true ,
+										     add      : true ,
+										     remove   : true
+								     }
 
 
 
