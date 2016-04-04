@@ -1,0 +1,1062 @@
+<!DOCTYPE html>
+<HTML>
+<HEAD>
+ <meta charset="UTF-8">
+ <title>UIjson.js by Chris B</title>
+
+ <meta name="keywords"    content="JSON UI,javascript,Jquery">
+ <meta name="description" content="Tool for create and edit JSON model with a bootstrap Interface">
+ <meta name="author"      content="Chris B">
+ 
+ <link rel="stylesheet" href="assets/blueprint-css/screen.css" type="text/css" media="screen, projection">
+ <link rel="stylesheet" href="assets/blueprint-css/print.css" type="text/css" media="print">
+ <!--[if lt IE 8]><link rel="stylesheet" href="assets/blueprint-css/ie.css" type="text/css" media="screen, projection"><![endif]-->
+ <link rel="stylesheet" href="assets/blueprint-css/plugins/fancy-type/screen.css" type="text/css" media="screen, projection">
+ 
+<style>
+         body{ padding-left: 15px;padding-right:15px; padding-top:0px;    }
+         h3  { font-weight:bold;  }
+         h3 a{ font-weight:normal;}
+         h4 b u { color : red; }		 
+		 pre { overflow : auto; background-color : #E7E7FA; padding : 10px; background-color: #EBF6FA; }
+		.dt  { color:red;}
+		.ndt { color:blue;}
+		.method_text{
+		      background-color : #E7E7FA;
+		      text-align       : left;
+			  padding          : 10px;
+			  margin-bottom    : 0px;
+		}
+		.method_title{
+             background-color : #FFEDED;
+             padding          : 10px;
+             margin           : 0px;		
+		}
+		.mini_title{
+             background-color : #DFF7F8;		
+		     padding-left     : 10px;
+			 font-style       : italic;
+			 font-weight      : bold;
+			 padding          : 10px;
+		}
+		.notices{
+		    font-weight       : bold;
+		    margin-bottom     : 70px;
+		}
+		.arg_wrapper{ padding : 10px; background-color:#EBF6FA; margin-bottom:20px;}
+		.args       { display : inline-block; }
+		.args.prop  { padding : 5px;  font-weight : bold;   }
+		.args.val   { padding : 3px;  margin-left:5px; background-color:green;   background-color: #C4E7C4;  border-radius: 5px;  }
+		
+		
+		
+		
+
+
+		.cs    { width  : 150px; display:inline-block;  vertical-align:top;}
+		.wrappera{ padding:0px;margin:0px;}	
+		.row   {overflow: hidden;margin-right: -15px; margin-left: -15px;color:white;}
+		.row h1{margin: 0px;color:white;padding-top: 30px;    padding-bottom: 30px;}
+		.row h4{color:black;font-size: 18px;padding-top:30px;padding-bottom:30px;box-shadow: 0px 4px 20px #91DFEC;margin-bottom: 40px;margin-top: 40px;}
+		.row .text-center{text-align: center;}
+		.row .text-primary{ color: #428bca; }
+		
+</style>
+
+
+<style>
+
+.notices{
+
+     color      : blue;
+     font-style : italic;
+	 
+}
+.tableLike{
+
+    margin-top    : 20px;
+	margin-bottom : 20px;
+
+}
+.tableLike .Arow{
+
+    text-align     : left;
+}    
+.group_part.name{
+
+    width          : 19%;
+    display        : inline-block;
+	vertical-align : top;
+	font-weight    : bold;
+	padding-bottom : 10px;
+}   
+.group_part.cont{
+
+    width          : 80%;
+    display        : inline-block;
+	vertical-align : top;
+	padding-bottom : 10px;	
+}
+
+pre .p_dataholders{
+
+   color           : red;
+
+}
+pre .n_dataholders{   
+
+   color           : blue;
+
+}
+
+.method u {
+
+   color :red;
+}
+.method h4,.method h5,.event h4,.event h5{
+
+   font-weight : bold;
+   
+}							   
+
+
+.event h4 span{
+
+  color : green;
+
+}
+.event H5,.method H5{margin:0px;}
+.event pre,.method pre{ padding :0px; margin : 0px;}
+
+.method .arg_wrapper{ border-bottom: 4px solid #80AED6;}
+.event  .arg_wrapper{ border-bottom: 4px solid #0FA085;}
+
+@media all and (max-width: 550px){
+
+   .group_part.name , .group_part.cont {
+       width          : 100%;
+   }
+}
+</style>
+<script>
+
+onload = function(){
+                    //  attach();
+};
+
+function attach(){
+
+                    var methods   = document.getElementsByClassName("method");
+					    
+						for( var u = 0; u < methods.length; u++ ){ 
+						
+						     var b = document.createElement("button");
+						         b.innerHTML = "RUN THIS METHOD";
+								
+								 b.addEventListener("click", function(){ 
+                                                                         Run( this.parentNode );
+                                 });
+								 methods[ u ].appendChild( b );
+						}
+};
+
+function Run( c ){
+
+var p,v,t;
+
+if( c.getElementsByClassName("prepar").length > 0 ){
+ p = c.getElementsByTagName("pre")[0].innerHTML;
+ v = c.getElementsByTagName("pre")[1].innerHTML;
+}else{
+ p = "";
+ v = c.getElementsByTagName("pre")[0].innerHTML;
+}
+					 
+var t = 	
+ '<html>'        
++'<head>'
+				
++'<link rel="stylesheet" href="../JsTree/themes/default/style.min.css">'
++'<link rel="stylesheet" href="../Bootstrap/css/bootstrap.css">'
++'<script src="http://code.jquery.com/jquery-2.2.0.min.js" type="text/javascript"><\/script>'
++'<script src="../Bootstrap/js/bootstrap.min.js" type="text/javascript"><\/script>'
++'<script src="../JsTree/jstree.min.js" type="text/javascript"><\/script>'
++'<script src="../UIjson.js"><\/script>'
+
++'<script>'
+
++'onload = function(){  var exampleOb  = {               name      : "Julian",               age       : "20",               country   : "USA",               past_jobs : ["Philips","ikea","apple","microsoft"] };  var config = {     "properties":  [ 		        { property:"name"      , assignTo:"input_field"    , label:"Persons Name" }, { property:"age"       , assignTo:"input_field" , label:"Persons Age"  },        { property:"country"   , assignTo:"select_list"    , label:"Country"   , options:["SPAIN","USA","Brazil","Canada"] },        { property:"past_jobs" , assignTo:"textarea_field" , label:"Portfolio" },		    ],								    "_Objects"  : [{obj:exampleOb,path:""}]			 };  $("#MyUI").UIjson( config ); '+p+'  setTimeout(function(){'+v+';  $("#MyUI").UIjson("ObjAll_Redraw"); },1000); }'
+
++'<\/script>'
+
++'</head>'
++'<body>'
+   + '<div id="MyUI" class="col-md-10 col-lg-10 col-sm-10">'
+   +       '<ul role="tablist" class="nav UIjson nav-tabs"></ul>'
+   +       '<div class="tab-content UIjson sections"></div>'
+   + '</div>'
++'</body>'
++'</html>';					
+					
+		            var newWindow = window.open();
+			            newWindow.document.write(t);
+
+                        newWindow.document.close();					 
+					 
+	   
+}
+</script>
+</HEAD>
+
+<BODY>
+
+
+          <div id="wrappera">
+		  
+                    <div class="row" style="background-color: #B5EAD6;background-position:0px -220px;background-repeat:no-repeat;background-color: #16243D;color:white;">
+                	      <h1 class="text-center"> UIjson.js <small class="text-primary">A Jquery plugin with bootstrap's responsiveness</small></h1>
+                     </div>
+                	 <div class="row">
+                	      <h4 class="text-center"> -- View and Edit your Json models with a responsive bootstrap Interface -- </h4>
+                    </div>
+
+            		
+              		<hr>
+			  <div id="wrapper" style="height:auto;margin:auto;width:100%;max-width:910px;display:block;">	
+                    <div class="section">
+                         <h2 id="toc" class="alt" style="font-family:arial;">Table of Contents</h2>
+            		     <ol id="content_list">
+      						 <li><a href="#Introduction">Introduction</a></li>
+      						 <li><a href="#Files">Files</a></li>
+      						 <li><a href="#Logic">Logic</a></li>
+      						 <li><a href="#Configuration">Configuration</a></li>
+							 <li><a href="#Progress">Progress</a></li>
+      						 <li><a href="#Methods">Methods</a></li>
+							 <li><a href="#Events">Events</a></li>
+      						 <li><a href="#Code Architecture">Code Architecture</a></li>
+							 <li><a href="#Styling">Styling classes</a></li>
+      						 <li><a href="#Sources and Credits">Sources and Credits</a></li>
+						 </ol>					
+					</div>
+					<div class="section">
+					       <h3 class="Main_titles" id="Introduction">1) Introduction - <a href="#toc">top</a></h3>
+					       <p>
+						   Most of the times in programming we have the need to output data of different types, which are just declared somewhere or they come from a process.Here comes the question of how we will represent them to the end user,in which format and how to manipulate the free space.Here UIjson.js came out.UIjson.js is a jquery plug-in which offers some predefined ways to render,edit and create data from JSON models.It makes use of most popular HTML, CSS, framework: BOOTSTRAP for interface and Javascript,Jquery for functionality.A lot of people love Boostrap because it makes them to not worry about cross browser/platform css compability issues. So I decided to use it here to keep you still free of worries. For the same reason I used Jquery.Both have great support, years of life ,great documentations , stability and many places to ask if you need any help. Stability is a preference for most of the clients. So lets continue to the point.
+						   </p>
+					</div>
+					<div class="section">
+					       <h3 class="Main_titles" id="Files">2) Files - <a href="#toc">top</a></h3>
+						   <p>1) UIjson.js<br>						     
+							  2) UIjson.min.js  - a minified version of UIjson.js<br>
+						   </p>
+						   <p class="notices">Notice : Because the plugIn is dependant, package also includes a copy of the most recents versions of bootstrap and jquery.</p>
+					</div>
+					<div class="section">
+					     <h3 class="Main_titles" id="Logic">3) Logic - <a href="#toc">top</a></h3>
+						 <p>
+						    You connect a JSON model or a reference of an object with UIjson 
+                            You define the properties of JSON you want their values to be rendered in HTML for editing 
+                            Now You can edit their values by using bootstrap's Interface
+						 </p>
+					</div>
+					<div class="section">
+					     <h3 class="Main_titles" id="Configuration">4) Configuration - <a href="#toc">top</a></h3>
+						 <div class="sub_section">
+						        <h4 class="mini_title">a) Include files in HEAD</h4>
+						        <p>
+						         First you need to include following files in head of your page for bootstrap,Jquery
+						        </p>
+							    <pre>&lt;head&gt; <br> .. .. <br>&lt;script src="http://code.jquery.com/jquery-2.2.0.min.js" type="text/javascript"&gt;&lt;/script&gt; <br>&lt;script src="js/jquery-ui.min.js"&gt;&lt;/script&gt;  <br>&lt;script src="js/bootstrap.min.js" type="text/javascript"&gt;&lt;/script&gt; <br><br>&lt;link rel="stylesheet" href="css/bootstrap.css"&gt;<br>&lt;script src="UIjson.js"&gt;&lt;/script&gt;<br> .. ..				 <br>&lt;/head&gt;</pre>
+						        <p class="notices"><span style="color:blue;font-style:italic;">Notice : If you dont want 'sortable' for array items, you can remove &lt;script src='js/jquery-ui.min.js'>&lt;/script>.</span></p>
+						 </div>
+						 <div class="sub_section">
+						        <h4 class="mini_title">b) Understanding Dataholders</h4>
+							    <p>
+							       The main subject of UIjson are the properties which hold data.These 'dataholder' properties can have value of type string,number,boolean or an array of these types.See <span style="color:red;">dataholders</span> of 'example' in <span style="color:red;">RED</span> highlight. These are the properties which can be handled by UIjson. <span style="color:blue;">Blue properties</span> will be <span style="color:blue;">Ignored</span>
+							    </p>
+							    <pre>
+var example  = {
+       <span class="p_dataholders">name</span>      : "Julian",
+       <span class="p_dataholders">age</span>       : "20",
+       <span class="p_dataholders">country</span>   : "USA",
+       <span class="p_dataholders">past_jobs</span> : ["Philips","ikea","apple","microsoft"],
+       <span class="n_dataholders">children</span>  : [ {<span class="p_dataholders">name</span>:""},{<span class="p_dataholders">name</span>:""} ],
+       <span class="n_dataholders">job</span>       : {}
+};								
+								</pre>
+							    <p class="notices">Notice : Dataholders properties can have Interface from bootstrap. BLUE properties will be ignored from UIjson.</p>
+						 </div>	
+						 <div class="sub_section">
+						        <h4 class="mini_title">c) Defining Dataholder properties</h4>
+							    <p>
+							       To configure UIjson you will need to define a dataholder object for each property you want to import. Undefined properties will not be removed as they are part of your model, but you will not able to render or edit them.They will be ignored from all UIjson's functionality.
+							    </p>
+							    <pre>
+//To define a dataholder Object you need at least to set these 2 properties, 'property' and 'assignTo'
+
+var dataHolder = { 
+
+   property:"name" , 
+   assignTo:"input_field" 
+};
+
+//And here the full options of dataholder Object
+
+var dataHolder = { 
+
+   property  :"name" ,        // the property
+   path      : "",            // Path may be used when you add a nested object which is part of a bigger instance, to separate this dataholder from others if they have same properties.
+   assignTo  :"input_field"   // How this property will be rendered in HTML.There a list of UI types in code architecture section of documentation.
+   tabName   :"Bio"  ,        // Default tab is 'General'. Only if tab with label 'Bio' is active you will be able to see the UI element for this property.
+   label     :"Person's Name" // Label text goes to 'control-label' element of bootstrap.
+   options   :[],             // Options required if assignTo is "select_list", "radio" or "checkbox"
+   arrEach   : false,         // If true means that if the value of the object is an array of strings,each element of the array will be a seperate UI element in HTML
+   array_Api : {              // It has meaning only if arrEach = true 
+   
+                sortable : true ,   // If true You can sort elements. This requires jquery-ui.
+                add      : true ,   // If true You can add new elements by clicking a symbol.
+                remove   : true     // If true You can remove an UI element from the array by clicking a symbol.
+				
+   }  
+};
+
+								</pre>
+							    <p class="notices">Notice : Each defined property is unique and Uniqueness is based on 'property' combined with 'path'. Default values are included in 'defaults' section of Documentation.</p>
+						 </div> 
+						 <div class="sub_section">
+     						   <h4 class="mini_title">d) UIjson.js configuration</h4>
+     						   <p>
+     						     Lets configure and call UIjson now for model : exampleOb
+     						   </p>
+							   <pre>
+//Our HTML:
+//The bound selector to UIjson must contain an empty element for tabs with class : 'UIjson nav-tabs' 
+//and an empty element for sections with class 'UIjson sections'
+//Dont forget that all UI_elements of UIjson.js use bootstrap's Grid system in HTML and bootstrap's classes.
+
+  &lt;div id="MyUI" class="col-md-10 col-lg-10 col-sm-10"&gt;
+          &lt;ul role="tablist" class="nav UIjson nav-tabs"&gt;&lt;/ul&gt;
+          &lt;div class="tab-content UIjson sections"&gt;&lt;/div&gt;
+  &lt;/div&gt;							   
+							   </pre>
+     						   <pre>
+var exampleOb  = {
+              name      : "Julian",
+              age       : "20",
+              country   : "USA",
+              past_jobs : ["Philips","ikea","apple","microsoft"]
+};
+
+var config = {  
+   "properties":  [
+		
+       { property:"name"      , assignTo:"input_field"    , label:"Person's Name" },	 
+       { property:"age"       , assignTo:"input_field"    , label:"Person's Age"  },
+       { property:"country"   , assignTo:"select_list"    , label:"Country"   , options:["SPAIN","USA","Brazil","Canada"] },
+       { property:"past_jobs" , assignTo:"textarea_field" , label:"Portfolio" },		
+   ],								
+   "_Objects"  : [{obj:exampleOb,path:""}]			
+};
+
+$("#MyUI").UIjson( config );
+							   
+							   </pre>
+						 </div>
+					</div>
+					<div class="section">
+					    <h3 class="Main_titles" id="Progress">5) Progress - <a href="#toc">top</a></h3>	
+						<p>
+						  So how it works.<br>
+						  i ) You define some properties in configuration or using defineProp( .. ) method. The objects you use to define them including some other properties are the <b>Dataholder Objects</b> of UIjson.js.<br>All dataholder Objects are stored in Dataholders array of UIjson Instance.<br>
+						  ii ) You import some Objects using _Objects in configuration or using ImportObject( .. ) method. <b>Lets say you import the object var AA = { };</b><br>
+						  Once imported , AA will be converted to <b>UIjson Object</b>and can be used from UIjson methods and events. <br>
+						  Below you can see how <b>UIjson Objects</b> look like : 
+						</p>
+						  <pre>
+var UIjsonObject = 						  
+{						  
+obj         : exampleOb, // A reference to the Imported Object.
+ui_wrapper  : null,      // It is a Jquery element and it will not be null only if this Object is rendered.
+dataholders : [],        // This array is filled from Obj_initDataholders( .. ) method
+path        : ""         // comes from user's definition
+}
+			              </pre>
+						  <p>All UIjson Objects exist in _Objects array of the Instance.</p>
+						  <p>
+						  iii ) Filling UIjson_Object.dataholders  array. <br><br>
+						  All properties of AA will be compared by name and path with the defined Dataholders.Matches will be pushed to UIjson_Object.dataholders  array
+						  </p>
+						  <p>
+						  iv ) Now everytime AA is going to be rendered, some objects of UIjson_Object.dataholders array will have "elements" property filled with some Jquery Selectors.
+						  </p>
+					</div>					
+					<div class="section">
+					    <h3 class="Main_titles" id="Methods">6) Methods - <a href="#toc">top</a></h3>
+                        <div id="method_cont">
+									 
+
+						       <div class="method">
+       							   <h4>Method : destroy()</h4>
+       							   <p class="method_text">Destroys UIjson instance,removes all events and all elements</p>
+       						       <div class="arg_wrapper">
+								   <pre>
+$("#MyUI").UIjson("destroy");
+								   </pre>								   
+       							       <h5>Arguments</h5>
+       								   <div>
+       								     <span class="args prop">none</span>
+       								   </div>
+       							   </div>
+						       </div>
+						       <div class="method">
+       							   <h4>Method : defineTab( str )</h4>
+       							   <p class="method_text">Defines a tab</p>
+       						       <div class="arg_wrapper">
+								   <pre>
+$("#MyUI").UIjson("defineTab","SomeTabName");
+								   </pre>								   
+       							       <h5>Arguments</h5>
+       								   <div>
+       								     <span class="args prop">str</span><b>:</b><span class="args val">string</span><br>
+       								   </div>
+       							   </div>
+						       </div>
+						       <div class="method">
+       							   <h4>Method : tabOrder ( arr )</h4>
+       							   <p class="method_text">Changes order of existing tabs.Accepts an array of existing tab names</p>
+       						       <div class="arg_wrapper">
+								   <pre class="prepar">
+// Lets define some new tabs for this example								   
+$("#MyUI").UIjson("defineTab","TabName1");	
+$("#MyUI").UIjson("defineTab","TabName2");
+$("#MyUI").UIjson("defineTab","TabName3");								   
+								   </pre>
+								   <pre>	 						   
+$("#MyUI").UIjson( "tabOrder" , [ "General" , "TabName2" , "TabName1" , "TabName3" ] );
+								   </pre>									   
+       							       <h5>Arguments</h5>
+       								   <div>
+       								     <span class="args prop">arr</span><b>:</b><span class="args val">Array of strings </span><br>
+       								   </div>
+       							   </div>
+						       </div>
+						       <div class="method">
+       							   <h4>Method : removeTab( str )</h4>
+       							   <p class="method_text">Removes an existing Tab. If this tab is already assigned to a dataholder object, tab,section and tabName properties of this dataholder change to default.</p>
+       						       <div class="arg_wrapper">
+								   <pre class="prepar">
+// Lets create a new tab and then we will delete it
+$("#MyUI").UIjson( "defineTab" , "SomeTabName" );							   
+								   </pre>								   
+								   <pre>
+$("#MyUI").UIjson( "removeTab" , "SomeTabName" );
+								   </pre>								   
+       							       <h5>Arguments</h5>
+       								   <div>
+       								     <span class="args prop">str</span><b>:</b><span class="args val">string</span><br>
+       								   </div>
+       							   </div>
+						       </div>
+						       <div class="method">
+       							   <h4>Method : defineProp( Obj )</h4>
+       							   <p class="method_text">Creates a dataholder Object for a property and pushs it to Dataholders array of UIjson instance. This method runs internally on configuration and can be used also to define dataholder Objects after configuration.</p>
+       						       <div class="arg_wrapper">
+								   <pre>
+$("#MyUI").UIjson( "defineProp" , { property:"name" , assignTo:"input_field" , label:"A Name" } );
+								   </pre>									   
+       							       <h5>Arguments</h5>
+       								   <div>
+       								     <span class="args prop">Obj</span><b>:</b><span class="args val">Object</span><br>
+       								   </div>
+       							   </div>
+						       </div>
+							   <div class="method">
+       							   <h4>Method : getProp( str , path )</h4>
+       							   <p class="method_text">Returns a defined dataholder Object based on property name and path</p>
+       						       <div class="arg_wrapper">
+								   <pre>
+var dataHolderObject = $("#MyUI").UIjson( "getProp" , "name" );
+								   </pre>										   
+       							       <h5>Arguments</h5>
+       								   <div>
+       								     <span class="args prop">str </span><b>:</b><span class="args val">String</span>
+										 <span class="args prop">path </span><b>:</b><span class="args val">String</span>
+       								   </div>
+       							   </div>
+						      </div>								   
+						       <div class="method">
+       							   <h4>Method : propTab( dataholderObject , tabName )</h4>
+       							   <p class="method_text">Assigns tab to a dataholder object. If tabName is provided and is not defined in config,it will be defined, else if tabName is not provided it will return the assigned tab of this dataholder object.</p>
+       						       <div class="arg_wrapper">
+								   <pre>
+// lets get the dataholder Object of the defined property 'name' and then run the method to change its tab.
+var dataHolderObject = $("#MyUI").UIjson( "getProp" , "name" );
+
+$("#MyUI").UIjson( "propTab" , dataHolderObject , "Name's Tab"  );
+								   </pre>								   
+       							       <h5>Arguments</h5>
+       								   <div>
+       								     <span class="args prop">dataholderObject</span><b>:</b><span class="args val">Object</span>
+										 <span class="args prop">tabName</span><b>:</b><span class="args val">String</span> <i>Optional</i> 
+       								   </div>
+       							   </div>
+						       </div>	
+							   <div class="method">
+       							   <h4>Method : unsetProp( dataholderObject )</h4>
+       							   <p class="method_text">Deletes a dataholder object from Dataholders array of UIjson instance. If a UIjson Object includes this dataholder in its dataholders array, it will be removed from there too.</p>
+       						       <div class="arg_wrapper">
+								   <pre>
+// Get dataholder Object of 'name' property and then run 'unsetProp' method to remove the dataholder Object
+var dataHolderObject = $("#MyUI").UIjson( "getProp" , "name" );
+$("#MyUI").UIjson( "unsetProp" , dataHolderObject );
+								   </pre>								   
+       							       <h5>Arguments</h5>
+       								   <div>
+       								     <span class="args prop">dataholderObject</span><b>:</b><span class="args val">Object</span><br>
+       								   </div>
+       							   </div>
+								   <p class="notices">Notice : Before unset progress you need to use ObjAll_Clear() or Obj_ClearRender( UIjsonObj ) or Obj_PropClear( UIjsonObj , propName ) to clear affected UIjson objects from UI. After unseting progress you need to use ObjAll_Render() or Obj_Render( UIjsonObj ) or Obj_PropRender( UIjsonObj , propName ) to render UI again. This is a REQUIRED step to avoid memory leaks or other unexpected behavior </p>
+						       </div>								   
+							 <div class="method">
+       							   <h4>Method : ImportObject( Obj , path )</h4>
+							 	   <p class="method_text">Converts Obj to UIjson Object and push it in _Objects array of the instance.</p>
+								   <div class="arg_wrapper">
+								   <pre>
+// Lets import object AA 								   
+var AA = {name:"Alice"};
+$("#MyUI").UIjson( "ImportObject" , AA , "" );
+								   </pre> 
+       							       <h5>Arguments</h5>
+										 <div>
+       								       <span class="args prop">Obj</span><b>:</b><span class="args val">Object</span>
+										   <span class="args prop">path</span><b>:</b><span class="args val">String</span>
+							             </div>
+       							   </div>
+						     </div>					 
+							 <div class="method">
+       							   <h4>Method : getUIjsonObj( Obj )</h4>
+							 	   <p class="method_text">Returns UIjson object for an <u>imported</u> Obj</p>
+								   <div class="arg_wrapper">
+								   <pre>
+var UIjsonObject =    $("#MyUI").UIjson( "getUIjsonObj" , exampleOb );
+console.log(UIjsonObject);
+								   </pre> 								   
+       							       <h5>Arguments</h5>
+										 <div>								   
+											<span class="args prop">Obj</span><b>:</b><span class="args val">Object</span>
+                                         </div>
+       							   </div>
+						     </div>	
+							 <div class="method">
+       							   <h4>Method :	Obj_initDataholders	( UIjsonObj )</h4>
+							 	   <p class="method_text">Initialises dataholders of the given UIjson Object. This method runs internally only on ImportObject. It may be usefull to you if you unset or change the global dataholders.</p>
+								   <div class="arg_wrapper">
+								   <pre class="prepar">
+// unset "Name"								   
+var dataHolderObject = $("#MyUI").UIjson( "getProp" , "name" );
+$("#MyUI").UIjson( "unsetProp" , dataHolderObject );
+
+// Now redefine it
+$("#MyUI").UIjson( "defineProp" , { property:"name" , assignTo:"input_field" , label:"A Name" } );
+
+// Then run "Obj_initDataholders" to re initialize.
+								   </pre>									   
+								   <pre>
+var UIjsonObject =  $("#MyUI").UIjson( "getUIjsonObj" , exampleOb );
+$("#MyUI").UIjson( "Obj_initDataholders" , UIjsonObject );
+								   </pre> 								   
+       							       <h5>Arguments</h5>
+										 <div>								   
+											<span class="args prop">UIjsonObj</span><b>:</b><span class="args val">UIjson Object</span>
+                                         </div>
+       							   </div>
+						     </div>									 
+							 <div class="method">
+       							   <h4>Method : Obj_Delete( Obj )</h4>
+							 	   <p class="method_text">Deletes an imported Object and deletes it from _Objects array of the instance.</p>
+								   <div class="arg_wrapper">
+								   <pre class="prepar">
+// Import Object AA and then get UIjsonObject of AA. finally delete it using "Obj_Delete" method
+var AA = {name:"Alice"};
+$("#MyUI").UIjson( "ImportObject" , AA , "" );
+var UIjsonObjAA = $("#MyUI").UIjson( "getUIjsonObj" , AA );
+								   </pre>									   
+								   <pre>
+var UIjsonObject = $("#MyUI").UIjson( "Obj_Delete" , UIjsonObjAA );
+								   </pre> 								   
+       							       <h5>Arguments</h5>
+										 <div>								   
+											<span class="args prop">Obj</span><b>:</b><span class="args val">Object</span><br>
+                                         </div>
+       							   </div>
+						     </div>												
+							 <div class="method">
+       							   <h4>Method : Obj_Elements( UIjsonObj , property )</h4>
+							 	   <p class="method_text">Returns all the visible elements in UI of a UIjson Object. 
+								    Argument UIjsonObj  can be obtained from getUIjsonObj method.If property provided it will return an array of UI elements assigned to that property</p>
+								   <div class="arg_wrapper">
+								   <pre>
+
+var UIjsonObject = $("#MyUI").UIjson( "getUIjsonObj" , exampleOb );
+var UI_elements  = $("#MyUI").UIjson( "Obj_Elements" , UIjsonObject , "name" );
+								   </pre> 									   
+       							       <h5>Arguments</h5>
+										 <div>								   
+											<span class="args prop">UIjsonObj<b>:</b><span class="args val">Object</span>
+											<span class="args prop">property <b>:</b><span class="args val">String</span> <i>Optional</i>
+                                         </div>
+       							   </div>
+						     </div>													
+							 <div class="method">
+       							   <h4>Method : Obj_Update( UIjsonObj )</h4>
+							 	   <p class="method_text">Updates UIjson object with values from interface. Argument can be obtained from getUIjsonObj method</p>
+								   <div class="arg_wrapper">
+								   <pre>
+// get 	UIjsonObject of exampleOb							   
+var UIjsonObject = $("#MyUI").UIjson( "getUIjsonObj" , exampleOb );
+
+// ..
+// change Interface values of inputs etc with your own DOM methods for example.     
+// ..
+// Then Update UIjsonObject with new values
+
+ $("#MyUI").UIjson( "Obj_Update" , UIjsonObject );
+								   </pre> 								   
+       							       <h5>Arguments</h5>
+										 <div>								   
+											<span class="args prop">UIjsonObj<b>:</b><span class="args val">Object</span>
+                                         </div>
+       							   </div>
+						     </div>									
+							 <div class="method">
+       							   <h4>Method : ObjAll_Render()</h4>
+							 	   <p class="method_text">Renders UI elements with values of ALL imported UIjson Objects</p>
+								   <div class="arg_wrapper">
+								   <pre>								   
+$("#MyUI").UIjson( "ObjAll_Render" );
+								   </pre> 									   
+       							       <h5>Arguments</h5>
+										 <div>								   
+											<span class="args prop">None</b></span>
+                                         </div>
+       							   </div>
+						     </div>									
+							 <div class="method">
+       							   <h4>Method : ObjAll_Clear()</h4>
+							 	   <p class="method_text">Remove all rendered UI elements and events of ALL imported  UIjson Objects</p>
+								   <div class="arg_wrapper">
+								   <pre>								   
+$("#MyUI").UIjson( "ObjAll_Clear" );
+								   </pre> 									   
+       							       <h5>Arguments</h5>
+										 <div>								   
+											<span class="args prop">None</b></span>
+                                         </div>
+       							   </div>
+						     </div>									
+							 <div class="method">
+       							   <h4>Method : Obj_ClearRender( UIjsonObj )</h4>
+							 	   <p class="method_text">Remove all UI elements(if exist) from interface of an imported Object. Argument can be obtained from getUIjsonObj method</p>
+								   <div class="arg_wrapper">
+								   <pre>								   
+var UIjsonObject = $("#MyUI").UIjson( "getUIjsonObj" , exampleOb );
+$("#MyUI").UIjson( "Obj_ClearRender" , UIjsonObject );
+								   </pre> 										   
+       							       <h5>Arguments</h5>
+										 <div>
+										    <span class="args prop">UIjsonObj<b>:</b><span class="args val">UIjson Object</span>
+                                         </div>
+       							   </div>
+						     </div>														
+							 <div class="method">
+       							   <h4>Method : Obj_Render( UIjsonObj )</h4>
+							 	   <p class="method_text">Renders UIjsonObj Object with its values to tab. Argument UIjsonObj can be obtained from getUIjsonObj method</p>
+								   <div class="arg_wrapper">
+								   <pre>								   
+var UIjsonObject = $("#MyUI").UIjson( "getUIjsonObj" , exampleOb );
+$("#MyUI").UIjson( "Obj_Render" , UIjsonObject );
+								   </pre> 								   
+       							       <h5>Arguments</h5>
+										 <div>
+										    <span class="args prop">UIjsonObj<b>:</b><span class="args val">UIjson Object</span>
+										    <span class="args prop">tab<b>:</b><span class="args val">String</span>											
+                                         </div>
+       							   </div>
+						     </div>														
+							 <div class="method">
+       							   <h4>Method : Obj_Redraw( UIjsonObj )</h4>
+							 	   <p class="method_text">Re-Renders an UIjson Object. It is a shortcut method of  Obj_ClearRender followed by  Obj_Render</p>
+								   <div class="arg_wrapper">
+								   <pre>								   
+var UIjsonObject = $("#MyUI").UIjson( "getUIjsonObj" , exampleOb );
+$("#MyUI").UIjson( "Obj_Redraw" , UIjsonObject );
+								   </pre> 								   
+       							       <h5>Arguments</h5>
+										 <div>
+										    <span class="args prop">UIjsonObj<b>:</b><span class="args val">UIjson Object</span>									
+                                         </div>
+       							   </div>
+						     </div>								    			
+							 <div class="method">
+       							   <h4>Method : Obj_PropRender(  UIjsonObj , propName  )</h4>
+							 	   <p class="method_text">Creates UI element for propName of UIjsonObj.This method is called from Obj_Render method.</p>
+								   <div class="arg_wrapper">
+								   <pre>
+							   
+var UIjsonObject = $("#MyUI").UIjson( "getUIjsonObj" , exampleOb );
+
+$("#MyUI").UIjson( "Obj_PropRender" , UIjsonObject , "name" );
+								   </pre> 									   
+       							       <h5>Arguments</h5>
+										 <div>
+										   <span class="args prop">UIjsonObj<b>:</b><span class="args val">UIjson Object</span>
+										   <span class="args prop">propName<b>:</b><span class="args val">String</span>
+                                         </div>
+       							   </div>
+						     </div>
+							 <div class="method">
+       							   <h4>Method : Obj_PropClear(  UIjsonObj , propName  )</h4>
+							 	   <p class="method_text">Removes assigned UI element for propName of UIjsonObj from Interface.</p>
+								   <div class="arg_wrapper">
+								   <pre>
+							   
+var UIjsonObject = $("#MyUI").UIjson( "getUIjsonObj" , exampleOb );
+
+$("#MyUI").UIjson( "Obj_PropClear" , UIjsonObject , "name" );
+								   </pre> 									   
+       							       <h5>Arguments</h5>
+										 <div>
+										   <span class="args prop">UIjsonObj<b>:</b><span class="args val">UIjson Object</span>
+										   <span class="args prop">propName<b>:</b><span class="args val">String</span>
+                                         </div>
+       							   </div>
+						     </div>
+							 <div class="method">
+       							   <h4>Method : Obj_PropRedraw	(  UIjsonObj , propName  )</h4>
+							 	   <p class="method_text">Re-renders property "propName" of UIjsonObj. </p>
+								   <div class="arg_wrapper">
+								   <pre>
+							   
+var UIjsonObject = $("#MyUI").UIjson( "getUIjsonObj" , exampleOb );
+
+$("#MyUI").UIjson( "Obj_PropRedraw" , UIjsonObject , "name" );
+								   </pre> 									   
+       							       <h5>Arguments</h5>
+										 <div>
+										   <span class="args prop">UIjsonObj<b>:</b><span class="args val">UIjson Object</span>
+										   <span class="args prop">propName<b>:</b><span class="args val">String</span>
+                                         </div>
+       							   </div>
+						     </div>						 
+							 <div class="method">
+       							   <h4>Method : Obj_PropUpdate(  UIjsonObj , propName  )</h4>
+							 	   <p class="method_text">Updates property value of UIjsonObj based on values of Interface</p>
+								   <div class="arg_wrapper">
+								   <pre>
+							   
+var UIjsonObject = $("#MyUI").UIjson( "getUIjsonObj" , AA );
+
+$("#MyUI").UIjson( "Obj_PropRender" , UIjsonObject , "name" );
+								   </pre> 									   
+       							       <h5>Arguments</h5>
+										 <div>
+										   <span class="args prop">UIjsonObj<b>:</b><span class="args val">UIjson Object</span>
+										   <span class="args prop">propName<b>:</b><span class="args val">String</span>
+                                         </div>
+       							   </div>
+						     </div>
+
+							 
+						</div>
+                    </div>
+					
+					<div class="section">
+					    <h3 class="Main_titles" id="Events">7) Events - <a href="#toc">top</a></h3>
+                        <div id="event_cont">
+						
+							 <div class="event">
+       							   <h4><span style="color:green;">Event</span> : on Obj_Update( e , Obj )</h4>
+							 	   <p class="method_text">Triggers when a value of a property has been changed from UI elements.</p>
+								   <div class="arg_wrapper">
+								   <pre>
+$("#MyUI").on("Obj_Update.UIjson",function( e , Obj ){});
+								   </pre>								   
+       							       <h5>Arguments</h5>
+										 <div>
+                                           <span class="args prop">e      <b>:</b>  <span class="args val">Jquery event</span>												 
+                                           <span class="args prop">Obj    <b>:</b>  <span class="args val">UIjson Object</span>
+                                         </div>
+       							   </div>
+						     </div>								 
+							 <div class="event">
+       							   <h4><span style="color:green;">Event</span> : on  Obj_Render( e , Obj )</h4>
+							 	   <p class="method_text">Triggers when all defined properties of  Obj are rendered.</p>
+								   <div class="arg_wrapper">
+								   <pre>
+$("#MyUI").on("Obj_Render.UIjson",function( e , Obj ){});
+								   </pre>									   
+       							       <h5>Arguments</h5>
+										 <div>
+                                           <span class="args prop">e      <b>:</b>  <span class="args val">Jquery event</span>												 
+                                           <span class="args prop">Obj    <b>:</b>  <span class="args val">UIjson Object</span><br>
+                                         </div>
+       							   </div>
+						     </div>													 
+							 <div class="event">
+       							   <h4><span style="color:green;">Event</span> : on Obj_ClearRender( e , Obj )</h4>
+							 	   <p class="method_text">Triggers when  all defined properties of  Obj are removed from UI.</p>
+								   <div class="arg_wrapper">
+								   <pre>
+$("#MyUI").on("Obj_ClearRender.UIjson",function( e , Obj ){});
+								   </pre>
+       							       <h5>Arguments</h5>
+										 <div>
+                                           <span class="args prop">e      <b>:</b>  <span class="args val">Jquery event</span>												 
+                                           <span class="args prop">Obj    <b>:</b>  <span class="args val">UIjson Object</span>
+                                         </div>
+       							   </div>
+						     </div>	
+							 <div class="event">
+       							   <h4><span style="color:green;">Event</span> : on Obj_PropRender( e , Obj , dthdObject , el )</h4>
+							 	   <p class="method_text">Triggers everytime an element is created for a UIjson Object property</p>
+								   <div class="arg_wrapper">
+								       <pre>
+$("#MyUI").on("Obj_PropRender.UIjson",function( e , Obj , propertyObj , el ){});
+									   </pre>
+       							       <h5>Arguments</h5>
+										 <div>
+                                           <span class="args prop">e      <b>:</b>  <span class="args val">Jquery event</span>												 
+                                           <span class="args prop">Obj    <b>:</b>  <span class="args val">UIjson Object</span>
+										   <span class="args prop">dthdObject <b>:</b>  <span class="args val">dataholderObject</span>
+										   <span class="args prop">el     <b>:</b>  <span class="args val">Jquery element</span>
+                                         </div>
+       							   </div>
+						     </div>
+							 <div class="event">
+       							   <h4><span style="color:green;">Event</span> : on Obj_PropClear( e , Obj , dthdObject , el )</h4>
+							 	   <p class="method_text">
+								   Triggers everytime an assigned element for a property of a UIjson Object is going to be removed from Interface. 
+								   It runs exactly before the removal of el. 
+								   This method is usefull when you have attached your own events using the api to an element and you need to detach them before the removal.								   
+								   </p>
+								   <div class="arg_wrapper">
+								   <pre>
+$("#MyUI").on("Obj_PropClear.UIjson",function( e , Obj , propertyObj , el ){});
+								   </pre>
+       							       <h5>Arguments</h5>								   
+										 <div>
+                                           <span class="args prop">e      <b>:</b>  <span class="args val">Jquery event</span>										 
+                                           <span class="args prop">Obj    <b>:</b>  <span class="args val">UIjson Object</span>
+										   <span class="args prop">dthdObject <b>:</b>  <span class="args val">dataholderObject</span>
+										   <span class="args prop">el     <b>:</b>  <span class="args val">Jquery element</span>
+                                         </div>
+       							   </div>
+						     </div>							 										 
+							 <div class="event">
+       							   <h4><span style="color:green;">Event</span> : on ObjAll_Render( e , instance )</h4>
+							 	   <p class="method_text">Triggers when all defined properties of ALL Objects have finished rendering.</p>
+								   <div class="arg_wrapper">
+       							       <h5>Arguments</h5>
+										 <div>
+                                           <span class="args prop">e      <b>:</b>  <span class="args val">Jquery event</span>										 
+                                           <span class="args prop">instance    <b>:</b>  <span class="args val">UIjson instance</span>
+                                         </div>
+       							   </div>
+						     </div>								 
+							 <div class="event">
+       							   <h4><span style="color:green;">Event</span> : on ObjAll_Clear( e , instance )</h4>
+							 	   <p class="method_text">Triggers when all defined properties of ALL Objects have finished rendering.</p>
+								   <div class="arg_wrapper">
+       							       <h5>Arguments</h5>
+										 <div>
+                                           <span class="args prop">e      <b>:</b>  <span class="args val">Jquery event</span>										 
+                                           <span class="args prop">instance    <b>:</b>  <span class="args val">UIjson instance</span>
+                                         </div>
+       							   </div>
+						     </div>				
+							 <div class="event">
+       							   <h4><span style="color:green;">Event</span> : on createUiElement( e , UIjsonObj , dthd , el )</h4>
+							 	   <p class="method_text">Triggers everytime an UI element is created.</p>
+								   <div class="arg_wrapper">
+       							       <h5>Arguments</h5>
+										 <div>
+                                           <span class="args prop">e         <b>:</b>  <span class="args val">Jquery event</span>										 
+                                           <span class="args prop">UIjsonObj <b>:</b>  <span class="args val">UIjson Object</span>
+                                           <span class="args prop">dthd      <b>:</b>  <span class="args val">dataholder Object</span>										 
+                                           <span class="args prop">el        <b>:</b>  <span class="args val">Jquery element</span>										   
+                                         </div>
+       							   </div>
+						     </div>		
+							 <div class="event">
+       							   <h4><span style="color:green;">Event</span> : on Obj_PropUpdate( e , UIjsonObj , propName )</h4>
+							 	   <p class="method_text">Triggers everytime a property of an UIjsonObj changes</p>
+								   <div class="arg_wrapper">
+       							       <h5>Arguments</h5>
+										 <div>
+                                           <span class="args prop">e         <b>:</b>  <span class="args val">Jquery event</span>										 
+                                           <span class="args prop">UIjsonObj <b>:</b>  <span class="args val">UIjson Object</span>
+                                           <span class="args prop">propName  <b>:</b>  <span class="args val">String</span>										 									   
+                                         </div>
+       							   </div>
+						     </div>		
+							 
+						</div>						
+					</div>
+					
+					
+					
+					
+					<div class="section">
+					    <h3 class="Main_titles" id="Code Architecture">8) Code Architecture - <a href="#toc">top</a></h3>
+						<div id="code_cont">
+						   <h4><b>This is the plugin constructor</b></h4>
+						   
+						   <pre>
+$.UIjson = function (){
+  this.Settings        = "";   //Merges defaults with changed defaults from user.  
+  this.Element         = null; //Holds Jquery selector of UIjson instance  
+  this._Objects        = [];   //Holds all UIjson objects  
+  this.ActiveTab       = "";   //Keeps name of the active tab 
+  this.Tabs            = {};   //Holds tab objects.It has same properties with Sections below.  
+  this.Sections        = {};   //Holds section objects.It has same properties with Tabs above.  
+  this.Dataholders     = [];   //Holds all the defined properties from configuration or from defineProp method.
+}
+						   </pre>
+						   
+						   <h4><b>Defaults</b></h4>
+<p>Defaults are merged with user's changes and stored to Settings of constructor.</p>						   
+<pre>
+
+ binders : { 
+             tabs        : ".nav-tabs",  //Exists in template the parent Element of each tab 
+             sections    : ".sections"    //It is the parent Element of each sections
+ },
+ dataHolder :  {
+             tabName    : "General" ,
+             path       : false     , 
+             label      : "&nbsp;"  , 
+             arrEach    : false     , 
+             options    : false     , 
+             array_Api  : { 
+                    sortable : true ,    
+                    add      : true ,   
+                    remove   : true   
+             }
+}
+</pre>
+						   
+						   <h4><b>Pool of UI elements</b></h4>
+						   
+						   <p>All UI elements exist as properties in UI_Elements_Pool. Each name must be unique.<br> _HTML contains HTML of element as string<br> Val_Method sets or returns value of target element.<br>AttachEv attach events<br>detachEv removes attached events</p>
+						   
+<pre>
+input_field : {
+_HTML      : '&lt;div class="col-md-6 col-lg-6 col-sm-6"&gt;&lt;div class="form-group"&gt;&lt;label class="control-label"&gt;&lt;/label&gt;&lt;input class="form-control" type="text" &lt;/div&gt;&lt;/div&gt;',
+Val_Method : function( _HTML , value ){var target = _HTML.find("input"); if( $.type( value )!=="undefined" ){  target.val( value ); }else{ return target.val();}},
+attachEv   : function( UIjsonInstance , Obj , el ){  el.find("input").eq(0).on("change",{UIjsonInstance:UIjsonInstance,Obj:Obj},$.UIjson.ActionsA.updateObj );return el;},
+detachEv   : function( UIjsonInstance , el ){ el.find("input").eq(0).off("change", $.UIjson.ActionsA.updateObj  );}	 
+}
+</pre>
+						   
+						   <h4 class="Main_titles">UIjson supports these elements using bootstrap's classes. The below names go as value to assignTo property</h4>
+						   <ol>
+						      <li>input_field</li>
+						      <li>textarea_field</li>
+						      <li>select_list</li>
+						      <li>checkbox</li>
+						      <li>radio</li>
+						      <li>thumbnail</li>
+						      <li>blockquote</li>
+						   </ol>
+						   
+						   <p class="notices">Notice : Using this format you can add your own elements and bind them with your Model. All UI_elements are parts of UI_object so each one must have a unique name which is used to 'assingTo' property.</p>
+						   
+						   <h4><b>$.JsonEditor.Tabs</b></h4>
+						   <div class="tableLike">
+						      <div class="Arow">
+						         <div class="group_part name">- tab_HTML -</div>
+							     <div class="group_part cont">'&lt;li role="presentation"&gt;&lt;a data-toggle="tab" href=""&gt;&lt;/a&gt;&lt;/li&gt;' <br>This is HTML as string of tab element</div>
+							  </div>	
+						      <div class="Arow">
+						         <div class="group_part name">- createTab -</div>
+							     <div class="group_part cont">Function to create a tab Object. Tab objects contain 'element':Jquery selector and 'name': the name of tab . Tab Objects stored in "Tabs"of UIjson constructor.</div>
+							  </div>	 
+						      <div class="Arow">
+						         <div class="group_part name">- deleteTab -</div>
+							     <div class="group_part cont">Function to unset a tab object from Tabs of UIjson instance.</div>
+							  </div>	 
+						      <div class="Arow">
+						         <div class="group_part name">- tabOrder -</div>
+							     <div class="group_part cont">Function to change order of tabs</div>
+							  </div>
+						      <div class="Arow">
+						         <div class="group_part name">- attachEv -</div> 
+							     <div class="group_part cont">Attachs Click event to a tab element</div>
+							  </div>
+						      <div class="Arow">
+						         <div class="group_part name">- detachEv -</div>
+							     <div class="group_part cont">Detach Click event from a tab element</div>
+							  </div>							  
+						   </div>
+						   <h4><b>$.JsonEditor.Sections</b></h4>
+						   <div class="tableLike"> 
+						      <div class="Arow">
+						         <div class="group_part name">- section_HTML -</div>
+							     <div class="group_part cont">'&lt;div role="tabpanel"   class="tab-pane tabSection fade in row" style="min-height:300px;"&gt;&lt;/div&gt;'</div>
+							  </div>	
+						      <div class="Arow">
+						         <div class="group_part name">- createSection -</div>
+							     <div class="group_part cont">Function to create a section object as pair to a tab. Section object contains properties "name":the name of tab and "element":Jquery selector</div>
+							  </div>	 
+						      <div class="Arow">
+						         <div class="group_part name">- deleteSection -</div>
+							     <div class="group_part cont">Function to unset A section object from Sections of UIjson instance.</div>
+							  </div>	 						   
+						   </div>
+						</div>
+					</div>
+					<div class="section">
+					    <h3 class="Main_titles" id="Styling">9) Styling Classes - <a href="#toc">top</a></h3>
+						<p>
+						   All the known classes of bootstrap are there.Although some elements with critical meaning have some additional classes.<br><br>
+						 	  
+						</p>
+						   <div class="tableLike"> 
+						      <div class="Arow">
+						         <div class="group_part name"> .path-label </div>
+							     <div class="group_part cont">: is the className of rendered path element of an UIjson Object</div>
+							  </div>	
+						      <div class="Arow">
+						         <div class="group_part name"> .UIjson_ObjWrapper </div>
+							     <div class="group_part cont">: is the parent of all  rendered UI elements of an UIjson Object.</div>
+							  </div>	 
+						      <div class="Arow">
+						         <div class="group_part name"> .UIjsonArraySortable </div>
+							     <div class="group_part cont">: is the parent of all  rendered UI elements which represent an array. It is applied only if arrEach is set to true.</div>
+							  </div>
+						      <div class="Arow">
+						         <div class="group_part name"> .UIjson_el </div>
+							     <div class="group_part cont">: is the className of all  rendered  UI_elements as defined in $.UIjson.UI_Elements object.</div>
+							  </div>	 
+						      <div class="Arow">
+						         <div class="group_part name"> .tabSection </div>
+							     <div class="group_part cont">: is the className of each section as direct child of defined section parent in config.Sections are there even if they are empty.But only the active section is visible.</div>
+							  </div>	 									  
+						   </div>						
+					</div>
+					<div class="section">
+					    <h3 class="Main_titles" id="Sources and Credits">10) Sources and Credits - <a href="#toc">top</a></h3>
+						<p>
+						   UIjson.js is dependant from Bootstrap. So many thanks to bootstrap team for making and giving bootstrap to the crowd.Although since they are pure css,you can customize the classes. 
+						</p>
+					</div>
+
+			</div>		
+					
+
+  </div>       
+
+             
+             
+</BODY>
+</HTML>		 
