@@ -15,9 +15,9 @@
 
 						 binders     : {
    
-							                 tabs       : ".UIjson.nav-tabs" ,
-											 sections   : ".UIjson.sections" ,
-											 obj        : ".UIjson.obj_UI" 
+							             tabs       : ".UIjson.nav-tabs" ,
+								     sections   : ".UIjson.sections" ,
+								     obj        : ".UIjson.obj_UI" 
 						 },
 						 dataHolder : {
 						                     tabName    : "General" ,
@@ -43,13 +43,13 @@
    **/
    $.UIjson.Instance = function(){
 	          
-			  this.Settings     = "",
-			  this.Element      = null,
-	          this._Objects     = [],
-              this.ActiveTab    = "General",			  
-			  this.Tabs         = {},
-	          this.Sections     = {},
-			  this.Dataholders  = []
+		this.Settings     = "",
+	        this.Element      = null,
+	        this._Objects     = [],
+                this.ActiveTab    = "General",			  
+	        this.Tabs         = {},
+	        this.Sections     = {},
+	        this.Dataholders  = []
    };
    
    $.UIjson.create   = function( el , params ){
