@@ -838,52 +838,52 @@
    $.UIjson.UI_Elements  = {
 	   
 	       input_field   : { 
-						 _HTML     :   '<div class="col-md-6 col-lg-6 col-sm-6 UIjson_el">'
+				 _HTML     :   '<div class="col-md-6 col-lg-6 col-sm-6 UIjson_el">'
 						             +    '<div class="form-group">'
 									 +      '<label class="control-label"></label>'
 									 +      '<input class="form-control" type="text">' 
 									 +    '</div>'
 									 + '</div>',
-						Val_Method : function( _HTML , value ){ 
+				Val_Method : function( _HTML , value ){ 
 						                              var target = _HTML.find("input");
 												      if( $.type( value )!=="undefined" ){   target.val( value );
 													  }else{                                 return target.val();  
 													  }
-						},
-						attachEv   : function( UIjsonInstance , UIjsonObj , dtHd , el ){ 
+				},
+				attachEv   : function( UIjsonInstance , UIjsonObj , dtHd , el ){ 
 																			
 								                        el.find("input").eq(0).on(    "change", $.proxy( UIjsonInstance, "Obj_PropUpdate" , UIjsonObj , dtHd.propertyName )    );					
 						                                return el; 
-						},
-                        detachEv  : function( UIjsonInstance , el ){ 
+				},
+                                detachEv  : function( UIjsonInstance , el ){ 
 						
 						                                el.find("input").eq(0).off( "change", UIjsonInstance.Obj_PropUpdate    );							
 						                           
-						}												
+				}												
 		 },		 
     	 textarea_field : { 
-    		              _HTML    :   '<div class="col-md-6 col-lg-6 col-sm-6 UIjson_el">'
+    		                 _HTML    :   '<div class="col-md-6 col-lg-6 col-sm-6 UIjson_el">'
 						             +   '<div class="form-group">' 
 						             +     '<label    class="control-label"></label>'
 									 +     '<textarea class="form-control" type="text" ></textarea>'               
 									 +    '</div>'
 									 + '</div>',									 
-						Val_Method : function( _HTML , value ){ 
+				Val_Method : function( _HTML , value ){ 
 						                              var target = _HTML.find("textarea");
 												      if( $.type( value )!=="undefined" ){   target.val( value );
 													  }else{                                 return target.val();  
 													  }
-						},
-						attachEv    : function( UIjsonInstance , UIjsonObj , dtHd , el ){ 
+				},
+				attachEv    : function( UIjsonInstance , UIjsonObj , dtHd , el ){ 
 						
 													  el.find("textarea").eq(0).on("change" , $.proxy( UIjsonInstance, "Obj_PropUpdate" , UIjsonObj , dtHd.propertyName ) );
 						                              return el; 
-						},
-                        detachEv    : function( UIjsonInstance , el ){ 
+				},
+                                detachEv    : function( UIjsonInstance , el ){ 
 						
 													  el.find("textarea").eq(0).off( "change", UIjsonInstance.Obj_PropUpdate    );	
 						                           
-						}													  
+				}													  
     	 },
     	 select_list   : { 
     		              _HTML    :   '<div class="col-md-6 col-lg-6 col-sm-6 UIjson_el">'
@@ -892,28 +892,28 @@
 									 +     '<select class="form-control" type="text" ></select>'               
 									 +    '</div>'
 									 + '</div>',									 				  
-						  _Options : function( _HTML , options  ){
+				 _Options : function( _HTML , options  ){
 							           var OptParent = _HTML.find("select");
 									   $(options).each(function(k,v){
 										   OptParent.append('<option value="'+v+'">'+v+'</option>');
 									   });
-						  },						  
-						Val_Method : function( _HTML , value ){ 
+				 },						  
+				Val_Method : function( _HTML , value ){ 
 						                              var target = _HTML.find("select");
 												      if( $.type( value )!=="undefined" ){   target.val( value );
 													  }else{                                 return target.val();  
 													  }
-						},
-						attachEv    : function( UIjsonInstance , UIjsonObj , dtHd , el ){ 
+				},
+				attachEv    : function( UIjsonInstance , UIjsonObj , dtHd , el ){ 
 						
 													  el.find("select").eq(0).on( "change" , $.proxy( UIjsonInstance, "Obj_PropUpdate" , UIjsonObj , dtHd.propertyName ) );
 						                              return el; 
-						},
-                        detachEv    : function( UIjsonInstance , el ){ 
+				},
+                                detachEv    : function( UIjsonInstance , el ){ 
 						
 													  el.find("select").eq(0).off( "change", UIjsonInstance.Obj_PropUpdate    );
 						                           
-						}																		
+				}																		
     	 },
     	 checkbox : {  
     		              _HTML    :   '<div class="col-md-6 col-lg-6 col-sm-6 UIjson_el">'
@@ -921,13 +921,13 @@
 						             +     '<label  class="control-label main_label"></label>'             
 									 +    '</div>'
 									 + '</div>',									 	
-						  _Options : function( _HTML , options  ){
+				_Options : function( _HTML , options  ){
 							             var OptParent = _HTML.find(".form-group");
 										 $(options).each(function(k,v){
 								OptParent.append('<div   class="checkbox"><label class="control-label"><input type="checkbox" name="k" value="'+v+'"></label>'+v+'</div>');								
 										 });
-						  },    	                			  
-						Val_Method : function( el , value ){ 
+				},    	                			  
+				Val_Method : function( el , value ){ 
 										                  var arr = [];
 										            
 												          if( $.type( value )!=="undefined" ){
@@ -947,31 +947,31 @@
 														             return arr;
  
 														  }						  
-					    },
-						attachEv   : function( UIjsonInstance , UIjsonObj , dtHd , el ){ 
+				 },
+				attachEv   : function( UIjsonInstance , UIjsonObj , dtHd , el ){ 
 						
 													     el.find("input").on( "change" , $.proxy( UIjsonInstance, "Obj_PropUpdate" , UIjsonObj , dtHd.propertyName ) );
 						                                 return el; 
-						},
-                        detachEv   : function( UIjsonInstance , el ){ 
+				},
+                                detachEv   : function( UIjsonInstance , el ){ 
 						
 													     el.find("input").off( "change", UIjsonInstance.Obj_PropUpdate    );
 						                           
-						}														  
+				}														  
     	 },
     	 radio    : {
-    		              _HTML    :   '<div class="col-md-6 col-lg-6 col-sm-6 UIjson_el">'
+    		                _HTML    :   '<div class="col-md-6 col-lg-6 col-sm-6 UIjson_el">'
 						             +   '<div class="form-group">' 
 						             +     '<label  class="control-label main_label"></label>'             
 									 +    '</div>'
 									 + '</div>',									 	
-						  _Options : function( _HTML , options  ){
+			        _Options : function( _HTML , options  ){
 							             var OptParent = _HTML.find(".form-group");
 										 $( options ).each(function(k,v){
 											 OptParent.append('<div class="radio"><label class="control-label"><input type="radio" name="k" value="'+v+'"></label>'+v+'</div>');
 										 });
-						  },    	                				  
-						Val_Method : function( el , value ){
+			        },    	                				  
+			        Val_Method : function( el , value ){
 							                            var va,found;
 												        if( $.type( value )!=="undefined" ){ 
 														      found = el.find("input[value='"+value+"']");
@@ -985,21 +985,21 @@
 															  if( $.type( va )==="undefined" ){ va = "";}
 															  return va;
 														}   
-						},
-						attachEv   : function( UIjsonInstance , UIjsonObj , dtHd , el ){ 
+			        },
+			        attachEv   : function( UIjsonInstance , UIjsonObj , dtHd , el ){ 
 						
 													    el.find("input").on( "change" , $.proxy( UIjsonInstance, "Obj_PropUpdate" , UIjsonObj , dtHd.propertyName ) );
 						                                return el; 
-						},
-                        detachEv   : function( UIjsonInstance , el ){ 
+				},
+                                detachEv   : function( UIjsonInstance , el ){ 
 						
 													    el.find("input").off( "change", UIjsonInstance.Obj_PropUpdate    );
 						                           
-						}														
+			        }														
     	 },
 	      thumbnail      : {
 			   
-			             _HTML     :  '<div class="col-md-2 col-lg-2 col-sm-2  UIjson_el">' 
+			         _HTML       :  '<div class="col-md-2 col-lg-2 col-sm-2  UIjson_el">' 
                                      +   '<div class = "thumbnail">'
                                      +     '<img src = "" alt = "Image not found">'
                                      +   '</div>'
@@ -1007,7 +1007,7 @@
 									 +	    '<div class="form-group"><input class="form-control" type="text"></div>'
 									 +   '</div>'		
                                      + '</div>',		 	 
-						Val_Method : function( _HTML , value ){  
+				Val_Method    : function( _HTML , value ){  
 						                              var target = _HTML.find("input"); 
 												      if( $.type( value )!=="undefined" ){ 
 													  
@@ -1016,29 +1016,29 @@
 													  }else{      
 													              return target.val();  
 													  }
-						             },
-						attachEv       : function( UIjsonInstance , UIjsonObj , dtHd , el ){ 
+				},
+			        attachEv     : function( UIjsonInstance , UIjsonObj , dtHd , el ){ 
 						
 													  el.find("input").eq(0).on( "change" , $.proxy( UIjsonInstance, "Obj_PropUpdate" , UIjsonObj , dtHd.propertyName ) );
 						                              return el; 
-						},
-                        detachEv     : function( UIjsonInstance , el ){ 
+				},
+                                detachEv     : function( UIjsonInstance , el ){ 
 						
 													  el.find("input").off( "change", UIjsonInstance.Obj_PropUpdate    );
 						                           
-						}														 
+				}														 
 		   },
 	       blockquote     : {
-			              _HTML    : '<blockquote class="col-md-6 col-lg-6 col-sm-6 UIjson_el"><label  class="control-label main_label"></label><p></p></blockquote>',
+			         _HTML    : '<blockquote class="col-md-6 col-lg-6 col-sm-6 UIjson_el"><label  class="control-label main_label"></label><p></p></blockquote>',
 						 _target   : function( _HTML ){ return _HTML.find("p").eq(0);   },							 
-						Val_Method : function( _HTML , value ){  
+				Val_Method : function( _HTML , value ){  
 						                              var target = this._target(_HTML ); 
 												      if( $.type( value )!=="undefined" ){ 
 													              target.html(value);  
 													  }else{      
 													              return target.html();  
 													  }
-					   }
+			        }
 
 		   }		   
 	   
