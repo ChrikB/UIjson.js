@@ -1,3 +1,4 @@
+/*Copyright ©  All Rights Reserved. Created By Chris B*/
 ;(function($) {
 
     "use strict";    
