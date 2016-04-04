@@ -84,7 +84,7 @@ var dataHolder = {
 };
 
 ```
-### d) Call UIjson.js 
+### d) Calling UIjson.js 
 
 Lets configure and call UIjson now for model : exampleOb
 ```html
@@ -148,6 +148,71 @@ All UIjson Objects exist in _Objects array of the Instance.
 All properties of AA will be compared by name and path with the defined Dataholders.Matches will be pushed to UIjson_Object.dataholders array
 
 **d)** Now everytime AA is going to be rendered, some objects of UIjson_Object.dataholders array will have "elements" property filled with some Jquery Selectors.
+
+## Code Architecture
+
+#### Contructor
+```js
+   $.UIjson.Instance = function(){
+	          
+			  this.Settings     = "",
+			  this.Element      = null,
+	          this._Objects     = [],
+              this.ActiveTab    = "General",			  
+			  this.Tabs         = {},
+	          this.Sections     = {},
+			  this.Dataholders  = []
+   };
+```
+
+#### Defaults
+
+```js
+
+   $.UIjson.defaults = {
+
+						 binders     : {
+   
+							                 tabs       : ".UIjson.nav-tabs" ,
+											 sections   : ".UIjson.sections" ,
+											 obj        : ".UIjson.obj_UI" 
+						 },
+						 dataHolder : {
+						                     tabName    : "General" ,
+						                     path       : false     ,
+							                 label      : "&nbsp"   ,
+							                 arrEach    : false     ,
+											 options    : false     ,
+											 array_Api  : {
+											                sortable : true ,
+															add      : true ,
+															remove   : true
+											}
+
+
+
+						 }
+   }; 
+```
+#### UI HTML Elements
+
+All UI elements exist as properties in **$.UIjson.UI_Elements**. Each name must be unique.
+
+- **_HTML**      contains HTML of element as string
+- **Val_Method** sets or returns value of target element.
+- **AttachEv**   attach events
+- **detachEv**   removes attached events
+
+**Use one of following names in configuration of dataholders to 'assignTo'**
+
+1. input_field
+2. textarea_field
+3. select_list
+4. checkbox
+5. radio
+6. thumbnail
+7. blockquote
+
 
 ## License
 
