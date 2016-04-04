@@ -5,8 +5,8 @@
   "description": "Creates HTML bootstrap elements based on properties of object",
   "main": "uijson.js",
   "repository": {
-    "type": "git",
-    "url": "https://github.com/ChrikB/UIjson.js.git"
+    "type" : "git",
+    "url"  : "https://github.com/ChrikB/UIjson.js"
   },
   "keywords": [
     "jquery-plugin",
