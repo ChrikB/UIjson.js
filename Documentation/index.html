@@ -138,74 +138,7 @@ pre .n_dataholders{
    }
 }
 </style>
-<script>
 
-onload = function(){
-                    //  attach();
-};
-
-function attach(){
-
-                    var methods   = document.getElementsByClassName("method");
-					    
-						for( var u = 0; u < methods.length; u++ ){ 
-						
-						     var b = document.createElement("button");
-						         b.innerHTML = "RUN THIS METHOD";
-								
-								 b.addEventListener("click", function(){ 
-                                                                         Run( this.parentNode );
-                                 });
-								 methods[ u ].appendChild( b );
-						}
-};
-
-function Run( c ){
-
-var p,v,t;
-
-if( c.getElementsByClassName("prepar").length > 0 ){
- p = c.getElementsByTagName("pre")[0].innerHTML;
- v = c.getElementsByTagName("pre")[1].innerHTML;
-}else{
- p = "";
- v = c.getElementsByTagName("pre")[0].innerHTML;
-}
-					 
-var t = 	
- '<html>'        
-+'<head>'
-				
-+'<link rel="stylesheet" href="../JsTree/themes/default/style.min.css">'
-+'<link rel="stylesheet" href="../Bootstrap/css/bootstrap.css">'
-+'<script src="http://code.jquery.com/jquery-2.2.0.min.js" type="text/javascript"><\/script>'
-+'<script src="../Bootstrap/js/bootstrap.min.js" type="text/javascript"><\/script>'
-+'<script src="../JsTree/jstree.min.js" type="text/javascript"><\/script>'
-+'<script src="../UIjson.js"><\/script>'
-
-+'<script>'
-
-+'onload = function(){  var exampleOb  = {               name      : "Julian",               age       : "20",               country   : "USA",               past_jobs : ["Philips","ikea","apple","microsoft"] };  var config = {     "properties":  [ 		        { property:"name"      , assignTo:"input_field"    , label:"Persons Name" }, { property:"age"       , assignTo:"input_field" , label:"Persons Age"  },        { property:"country"   , assignTo:"select_list"    , label:"Country"   , options:["SPAIN","USA","Brazil","Canada"] },        { property:"past_jobs" , assignTo:"textarea_field" , label:"Portfolio" },		    ],								    "_Objects"  : [{obj:exampleOb,path:""}]			 };  $("#MyUI").UIjson( config ); '+p+'  setTimeout(function(){'+v+';  $("#MyUI").UIjson("ObjAll_Redraw"); },1000); }'
-
-+'<\/script>'
-
-+'</head>'
-+'<body>'
-   + '<div id="MyUI" class="col-md-10 col-lg-10 col-sm-10">'
-   +       '<ul role="tablist" class="nav UIjson nav-tabs"></ul>'
-   +       '<div class="tab-content UIjson sections"></div>'
-   + '</div>'
-+'</body>'
-+'</html>';					
-					
-		            var newWindow = window.open();
-			            newWindow.document.write(t);
-
-                        newWindow.document.close();					 
-					 
-	   
-}
-</script>
 </HEAD>
 
 <BODY>
