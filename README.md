@@ -221,4 +221,6 @@ All UI elements exist as properties in **$.UIjson.UI_Elements**. Each name must 
 
 ## License
 
-UIjson.js Copyright © Chris_B
+UIjson.js Copyright (c) 2016 Chris B
+
+MIT
