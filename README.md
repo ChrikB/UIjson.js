@@ -5,6 +5,8 @@ Objects in Bootstrap Interface
 
 [http://www.scriptrain.com/projects/uijson/UIjson.js-demo-page.html](http://www.scriptrain.com/projects/uijson/UIjson.js-demo-page.html)
 
+Full Api here : [http://www.scriptrain.com/projects/uijson/API](http://www.scriptrain.com/projects/uijson/API)
+
 ## What is UIjson.js
 
 UIjson.js is a plugin written in Jquery which uses Bootstrap's classes to render properties of Objects and their values to predefined HTML elements.
