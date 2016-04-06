@@ -27,9 +27,9 @@ First you need to include following files in head of your page for bootstrap,Jqu
   2. UIjson.min.js - a minified version of UIjson.js
 
 ##### Dependencies : 
-- bootstrap 3 
-- jquery 
-- jquery-ui if you want to make use of sortable and draggable to manipulate array items from interface
+- bootstrap v3.1 
+- jquery v2.2.3
+- jquery-ui v1.11.4 if you want to make use of sortable and draggable to manipulate array items from interface
 
 
 ```html
