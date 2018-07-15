@@ -113,8 +113,8 @@ var exampleOb  = {
 
 var config = {  
   "properties":  [
-    { property: 'name', assignTo: 'input_field', label: 'Person's Name' },	 
-    { property: 'age', assignTo: 'input_field', label: 'Person's Age'  },
+    { property: 'name', assignTo: 'input_field', label: 'Person"s Name' },	 
+    { property: 'age', assignTo: 'input_field', label: 'Person"s Age'  },
     { property: 'country', assignTo: 'select_list', label: 'Country', options: [ 'SPAIN', 'USA', 'Brazil', 'Canada' ] },
     { property: 'past_jobs' , assignTo: 'textarea_field', label: 'Portfolio' },		
    ],								
