@@ -15,8 +15,8 @@
       tabs: '.UIjson.nav-tabs' ,
 	  sections: '.UIjson.sections' ,
 	  obj: '.UIjson.obj_UI' 
-	},
-	dataHolder: {
+      },
+      dataHolder: {
 	  tabName: 'General',
 	  path: false,
 	  label: '&nbsp',
@@ -27,7 +27,7 @@
 		add: true ,
 		remove: true
 	  }
-    }
+      }
    }; 
    
    /**
@@ -37,12 +37,12 @@
    **/
    $.UIjson.Instance = function () {	          
      this.Settings = '',
-	 this.Element = null,
-	 this._Objects = [],
+     this.Element = null,
+     this._Objects = [],
      this.ActiveTab = 'General',			  
-	 this.Tabs = {},
-	 this.Sections = {},
-	 this.Dataholders = []
+     this.Tabs = {},
+     this.Sections = {},
+     this.Dataholders = []
    };
    
    $.UIjson.create = function(el, params) {	   
@@ -61,15 +61,15 @@
    *    JsTree is the object feeder in our case, but using a feeder we can get objects from everywhere we want.
    **/
    
-   $.UIjson.Obj = function( Ob , path ){
+   $.UIjson.Obj = function(Ob, path) {
 	   
      this.obj = Ob;
-	 this.ui_wrapper  = null;
-	 this.dataholders = [];
+     this.ui_wrapper  = null;
+     this.dataholders = [];
 			  
-	 if ($.type(path) !== 'undefined') {
+     if ($.type(path) !== 'undefined') {
        this.path = path;	 
-	 }
+     }
    };
    
 
@@ -94,7 +94,7 @@
 	  this.Element.find('.nav-tabs').eq(0).children().eq(0).find('a').trigger('click');
 	 }, 
 	 
-	 destroy: function () { 					               
+     destroy: function () { 					               
 	   /* Detach events from tabs */
        for (var b in this.Tabs) {       
 	   	 $.UIjson.Tabs.detachEv(this.Tabs[b], this);   
@@ -145,7 +145,7 @@
 	  $.UIjson.Tabs.tabOrder( arrObjects );					                  	   
 	},                   
 				                      
-	removeTab: function(tabName) { 
+    removeTab: function(tabName) { 
 					                  			
 	  var k,m,TabObj,SectionObj,Objs = this._Objects , ObjsLen = Objs.length;
 	  if (this.Tabs.hasOwnProperty(tabName)) {
@@ -169,7 +169,7 @@
 	  }					                  
 	}, 
 	
-	propTab: function(dtObj, tabName) {
+    propTab: function(dtObj, tabName) {
 		
 	  var TAB_OBJ; 
 	  if ($.type(tabName) !== 'undefined') {
@@ -185,11 +185,9 @@
 	  } else {
 		return dtObj.tabName;
 	  }		
-    },
-				 
-    /** Dataholders Api **/ 
-				 
-	defineProp: function (propObj) {
+    },				 
+    /** Dataholders Api **/ 				 
+    defineProp: function (propObj) {
 					                  
 	  var TAB_OBJ,
 	  SECTION_OBJ,
@@ -228,9 +226,8 @@
 	  NewProp = $.extend(true, {}, this.Settings.dataHolder , propObj ); 
       this.Dataholders.push(NewProp);        
       return NewProp;					                  
-	}, 
-	
-	unsetProp: function(propObject) {
+    }, 	
+    unsetProp: function(propObject) {
                                     
 	  var k,u,_obj;
 	  for (k = 0 ; k < this._Objects.length; k++ ) {
@@ -273,17 +270,15 @@
 	 
      return propObj;
          							 
-    },
-	
-	ImportObject: function(obj, path ) { 
+    },	
+    ImportObject: function(obj, path ) { 
 					 
 	  var newObject = new $.UIjson.Obj(obj , path);
 	  this._Objects.push(newObject);
 	  this.Obj_initDataholders(newObject);
 	  
 	  this.Element.trigger('ImportObject.UIjson', [ newObject ]);
-	},
-	
+    },	
     getUIjsonObj: function (ob) {
 		
 	  var UIob = false;
@@ -295,8 +290,7 @@
 	  });
 	  return UIob;
 					 
-	},	
-	
+    },	
     Obj_Delete: function( UIjsonObj ) {
 					 
 	  var THAT = this;
@@ -309,8 +303,7 @@
 		}
 	  });				 
 					 
-	},
-	
+   },	
     Obj_DeleteAll: function () {					 
 	  var THAT = this;
 	  $(this._Objects).each(function(i, obj) {
@@ -319,8 +312,7 @@
 		return false;
 											   
 	  });				 					 
-	},
-	
+    },	
     Obj_Elements: function (UIjsonObj, propName) {
 					 
 	  var u , k , ObjDataholders = UIjsonObj.dataholders , all_Elements = [];
@@ -339,18 +331,16 @@
 		}
 	  }
 	  return all_Elements; 	  
-	},
-	
-	Obj_Update : function (UIjsonObj) {  				 
+     },
+    Obj_Update: function (UIjsonObj) {  				 
 	  /** 
 	      Parsing all elements of all dataholder objects of a UIjson object and using Val_Method of each assigned UI_element 
 	  	updates all values of imported Object reference.										
 	  **/
 	  this.Obj_PropUpdate(UIjsonObj);
 	  this.Element.trigger('Obj_Update.UIjson', [ UIjsonObj ] ); 										 														                  
-	},
-	
-	ObjAll_Render: function () { 
+    },
+    ObjAll_Render: function () { 
 				 
 	  var t , _Objs = this._Objects , len = _Objs.length , tab = this.ActiveTab;
 										
@@ -360,9 +350,8 @@
 	  }
 										
 	  this.Element.trigger('ObjAll_Render.UIjson', [this]);
-	},
-	
-	ObjAll_Clear : function () { 
+    },
+    ObjAll_Clear: function () { 
 	
 	  var t , _Objs = this._Objects , len = _Objs.length;
 										
@@ -370,9 +359,8 @@
 	    this.Obj_ClearRender(_Objs[t]);  											  
 	  }										
 	  this.Element.trigger('ObjAll_Clear.UIjson', [this]);	  
-	},
-	
-	ObjAll_Redraw: function () { 
+    },	
+    ObjAll_Redraw: function () { 
 				 
 	  var t , _Objs = this._Objects , len = _Objs.length;
 										
@@ -380,9 +368,8 @@
 	    this.Obj_Redraw(_Objs[t]);  											  
 	  }										
 	  this.Element.trigger('ObjAll_Redraw.UIjson', [ this ]);
-	},		
-	
-	Obj_initDataholders: function (UIjsonObj) { 
+    },		
+    Obj_initDataholders: function (UIjsonObj) { 
 					                     
 	  var THAT = this , dtHd , dataProperties = [];
 										 
@@ -413,14 +400,12 @@
 	  });
 	  return  dataProperties;
 										
-	},
-	
-	Obj_Redraw: function(UIjsonObj) {
+    },	
+    Obj_Redraw: function(UIjsonObj) {
 					 
 	  this.Obj_ClearRender(UIjsonObj);
 	  this.Obj_Render(UIjsonObj);					 
-	},
-	
+    },	
     Obj_Render: function(UIjsonObj) {
 					 
       var path = UIjsonObj.path || '';		
@@ -434,9 +419,8 @@
 	  /** Calling Obj_PropRender without propName argument will render all properties of UIjsonObj object. **/
 	  this.Obj_PropRender(UIjsonObj);						   
 					 
-	},	
-	
-	Obj_PropRender: function(UIjsonObj, propName) {
+    },		
+    Obj_PropRender: function(UIjsonObj, propName) {
 					 
 	  var ka, p, dtHd, UIelement, value, path = UIjsonObj.path || '' ,dtObjs = UIjsonObj.dataholders ,dtObjLen = dtObjs.length;
 									   
@@ -491,9 +475,8 @@
 		  }												 
 		}												
 	  }	  
-    },
-	
-	Obj_ClearRender: function(UIjsonObj) {
+    },	
+    Obj_ClearRender: function(UIjsonObj) {
 					 
 	  if (!UIjsonObj.ui_wrapper) { return false; }  
 	  /** Calling Obj_PropClear without 'propName' argument will clear UI of all the properties of UIjsonObj object. **/										
@@ -503,7 +486,7 @@
 	  this.Element.trigger('Obj_ClearRender.UIjson', [ UIjsonObj ]); 				 					 
 	},
 	
-	Obj_PropClear: function(UIjsonObj, propName) { 
+    Obj_PropClear: function(UIjsonObj, propName) { 
 					 
 	   var el , ka , dtHd , y  , dtObjs = UIjsonObj.dataholders , dtObjLen = dtObjs.length;					 
 	   /**
@@ -546,9 +529,8 @@
 		  }
 												 
 		}												 
-	},
-	
-	Obj_PropRedraw: function(UIjsonObj, propName) {
+    },	
+    Obj_PropRedraw: function(UIjsonObj, propName) {
 					 
 	  var el, ka, dtHd, y, dtObjs = UIjsonObj.dataholders, dtObjLen = dtObjs.length;
 										 
@@ -561,9 +543,8 @@
 		  this.Obj_PropRender(UIjsonObj, propName);
 		}
 	  }												 					 
-	},
-	 
-	Obj_PropUpdate: function(UIjsonObj, propName ) { 
+    },	 
+    Obj_PropUpdate: function(UIjsonObj, propName ) { 
 				 
 	  var k, ka, arr = [], dtHd, dtObjs = UIjsonObj.dataholders , dtObjLen = dtObjs.length;
 									   
@@ -592,9 +573,8 @@
 				 
 				 
 				 
-	}, 
-	
-	createUiElement: function(UIjsonObj, dtHd, parent) {
+    }, 	
+    createUiElement: function(UIjsonObj, dtHd, parent) {
 					 
 	  var UiEl, dthdCONFIG = dtHd.config , THAT = this;	
 									       
@@ -622,13 +602,12 @@
 										   
 	  dtHd.elements.push(UiEl);
 
-      this.Element.trigger('createUiElement.UIjson', [ UIjsonObj, dtHd, UiEl ]);	
+          this.Element.trigger('createUiElement.UIjson', [ UIjsonObj, dtHd, UiEl ]);	
 										   
 	  return UiEl;										   
 					 					 					 
-	},
-	
-	initArrayTemplate: function(UIjsonObj, dtHd, par) { 
+    },	
+    initArrayTemplate: function(UIjsonObj, dtHd, par) { 
 			
       var THAT = this,lab = dtHd.config.label,arrTemplate,Wrapper,glyf,Class = "UIjsonArraySortable"; 
 	  arrTemplate = $('<div class="col-md-12 col-lg-12 col-sm-12"><label class="control-label">' + lab + '</label><div class="UIjsonArraySortable row"></div></div>').appendTo(par);
@@ -699,7 +678,7 @@
 												
 		/** Hide all sections and show only the targeted based on tab name**/
 		SECTION_obj.element.parent().children().hide();						
-        SECTION_obj.element.show();	
+                SECTION_obj.element.show();	
 												
 		Instance.ActiveTab = TAB_obj.name;
 		Instance.ObjAll_Render();												
@@ -787,12 +766,12 @@
 	    el.find('input').eq(0).on( 'change', $.proxy(UIjsonInstance, 'Obj_PropUpdate', UIjsonObj, dtHd.propertyName));					
 		return el; 
 	  },
-      detachEv: function(UIjsonInstance, el) { 						
+          detachEv: function(UIjsonInstance, el) { 						
 	    el.find('input').eq(0).off('change', UIjsonInstance.Obj_PropUpdate);													                           
 	  }												
     },		 
     textarea_field: { 
-      _HTML:      '<div class="col-md-6 col-lg-6 col-sm-6 UIjson_el">'
+           _HTML:      '<div class="col-md-6 col-lg-6 col-sm-6 UIjson_el">'
 				  +   '<div class="form-group">' 
 				  +     '<label    class="control-label"></label>'
 				  +     '<textarea class="form-control" type="text" ></textarea>'               
@@ -810,12 +789,12 @@
 		el.find('textarea').eq(0).on('change', $.proxy(UIjsonInstance, 'Obj_PropUpdate', UIjsonObj, dtHd.propertyName));
 		return el; 
 	  },
-      detachEv: function(UIjsonInstance, el) { 						
+          detachEv: function(UIjsonInstance, el) { 						
 		el.find('textarea').eq(0).off('change', UIjsonInstance.Obj_PropUpdate);							                           
 	  }													  
     },
     select_list: { 
-      _HTML:      '<div class="col-md-6 col-lg-6 col-sm-6 UIjson_el">'
+         _HTML:      '<div class="col-md-6 col-lg-6 col-sm-6 UIjson_el">'
 				  +  '<div class="form-group">' 
 				  +    '<label  class="control-label"></label>'
 				  +    '<select class="form-control" type="text" ></select>'               
@@ -839,12 +818,12 @@
 		el.find('select').eq(0).on('change', $.proxy(UIjsonInstance, 'Obj_PropUpdate', UIjsonObj, dtHd.propertyName));
 		return el; 
 	  },
-      detachEv: function(UIjsonInstance, el) { 						
+          detachEv: function(UIjsonInstance, el) { 						
 		el.find('select').eq(0).off('change', UIjsonInstance.Obj_PropUpdate);						                           
 	  }																		
     },
     checkbox: {  
-      _HTML:      '<div class="col-md-6 col-lg-6 col-sm-6 UIjson_el">'
+           _HTML:      '<div class="col-md-6 col-lg-6 col-sm-6 UIjson_el">'
 				 +   '<div class="form-group">' 
 				 +     '<label  class="control-label main_label"></label>'             
 				 +    '</div>'
@@ -878,12 +857,12 @@
 	    el.find('input').on('change', $.proxy(UIjsonInstance, 'Obj_PropUpdate', UIjsonObj, dtHd.propertyName));
 		return el; 
 	  },
-      detachEv: function(UIjsonInstance, el ) { 						
+          detachEv: function(UIjsonInstance, el ) { 						
 	    el.find('input').off('change', UIjsonInstance.Obj_PropUpdate);						                           
 	  }														  
     },
     radio: {
-       _HTML:     '<div class="col-md-6 col-lg-6 col-sm-6 UIjson_el">'
+           _HTML:     '<div class="col-md-6 col-lg-6 col-sm-6 UIjson_el">'
 				 +   '<div class="form-group">' 
 				 +     '<label  class="control-label main_label"></label>'             
 				 +    '</div>'
@@ -914,11 +893,11 @@
 	     el.find('input').on('change', $.proxy(UIjsonInstance, 'Obj_PropUpdate', UIjsonObj, dtHd.propertyName));
 		 return el; 
 	   },
-       detachEv: function(UIjsonInstance, el) { 						
+           detachEv: function(UIjsonInstance, el) { 						
 		 el.find('input').off('change', UIjsonInstance.Obj_PropUpdate);						                           
 	   }														
     },
-	thumbnail: {
+    thumbnail: {
 			   
 	  _HTML:  '<div class="col-md-2 col-lg-2 col-sm-2  UIjson_el">' 
                +   '<div class = "thumbnail">'
@@ -943,7 +922,7 @@
 		el.find('input').eq(0).on('change', $.proxy(UIjsonInstance, 'Obj_PropUpdate', UIjsonObj, dtHd.propertyName));
 		return el; 
 	  },
-      detachEv: function(UIjsonInstance, el) { 						
+         detachEv: function(UIjsonInstance, el) { 						
 	    el.find('input').off('change', UIjsonInstance.Obj_PropUpdate);						                           
 	  }														 
     },
