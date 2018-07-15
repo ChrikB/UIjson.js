@@ -48,11 +48,11 @@ The main subject of UIjson are the properties which hold data.These 'dataholder'
 
 ```js
 var example = {
-  name: "Julian",
-  age: "20",
-  country: "USA",
-  past_jobs: [ "Philips", "ikea", "apple", "microsoft" ],
-  children: [ { name: "" }, { name: "" } ],
+  name: 'Julian',
+  age: '20',
+  country: 'USA',
+  past_jobs: [ 'Philips', 'ikea', 'apple', 'microsoft' ],
+  children: [ { name: '' }, { name: '' } ],
   job: {}
 };								
 ```
@@ -66,19 +66,19 @@ To configure UIjson you will need to define a dataholder object for each propert
 //To define a dataholder Object you need at least to set these 2 properties, 'property' and 'assignTo'
 
 var dataHolder = { 
-  property: "name" , 
-  assignTo: "input_field" 
+  property: 'name' , 
+  assignTo: 'input_field' 
 };
 
 //And here the full options of dataholder Object
 
 var dataHolder = { 
-  property:"name", // the property
-  path: "", // Path may be used when you add a nested object which is part of a bigger instance, to separate this dataholder from others if they have same properties.
-  assignTo: "input_field",   // How this property will be rendered in HTML.There a list of UI types in code architecture section of documentation.
-  tabName:"Bio",        // Default tab is 'General'. Only if tab with label 'Bio' is active you will be able to see the UI element for this property.
-   label:"Person's Name", // Label text goes to 'control-label' element of bootstrap.
-   options:[],             // Options required if assignTo is "select_list", "radio" or "checkbox"
+  property: 'name', // the property
+  path: '', // Path may be used when you add a nested object which is part of a bigger instance, to separate this dataholder from others if they have same properties.
+  assignTo: 'input_field',   // How this property will be rendered in HTML.There a list of UI types in code architecture section of documentation.
+  tabName: 'Bio',        // Default tab is 'General'. Only if tab with label 'Bio' is active you will be able to see the UI element for this property.
+   label: 'Person's Name', // Label text goes to 'control-label' element of bootstrap.
+   options: [],             // Options required if assignTo is "select_list", "radio" or "checkbox"
    arrEach: false,         // If true means that if the value of the object is an array of strings,each element of the array will be a seperate UI element in HTML
    array_Api: {              // It has meaning only if arrEach = true 
      sortable: true,   // If true You can sort elements. This requires jquery-ui.
@@ -105,20 +105,20 @@ Lets configure and call UIjson now for model : exampleOb
 ```
 ```js
 var exampleOb  = {
-  name: "Julian",
-  age: "20",
-  country: "USA",
-  past_jobs: [ "Philips", "ikea", "apple", "microsoft" ]
+  name: 'Julian',
+  age: '20',
+  country: 'USA',
+  past_jobs: [ 'Philips', 'ikea', 'apple', 'microsoft' ]
 };
 
 var config = {  
   "properties":  [
-    { property: "name", assignTo: "input_field", label: "Person's Name" },	 
-    { property: "age", assignTo: "input_field", label: "Person's Age"  },
-    { property: "country", assignTo: "select_list", label:"Country", options: [ "SPAIN", "USA", "Brazil", "Canada" ] },
-    { property: "past_jobs" , assignTo: "textarea_field", label: "Portfolio" },		
+    { property: 'name', assignTo: 'input_field', label: 'Person's Name' },	 
+    { property: 'age', assignTo: 'input_field', label: 'Person's Age'  },
+    { property: 'country', assignTo: 'select_list', label: 'Country', options: [ 'SPAIN', 'USA', 'Brazil', 'Canada' ] },
+    { property: 'past_jobs' , assignTo: 'textarea_field', label: 'Portfolio' },		
    ],								
-   "_Objects"  : [ { obj: exampleOb, path: "" } ]			
+   "_Objects"  : [ { obj: exampleOb, path: '' } ]			
 };
 
 $("#MyUI").UIjson( config );
@@ -156,10 +156,10 @@ All properties of AA will be compared by name and path with the defined Datahold
 #### Contructor
 ```js
 $.UIjson.Instance = function () {
-  this.Settings = "",
+  this.Settings = '',
   this.Element = null,
   this._Objects = [],
-  this.ActiveTab = "General",			  
+  this.ActiveTab = 'General',			  
   this.Tabs = {},
   this.Sections = {},
   this.Dataholders = []
@@ -172,19 +172,19 @@ $.UIjson.Instance = function () {
 
   $.UIjson.defaults = {
      binders: {
-       tabs: ".UIjson.nav-tabs" ,
-       sections: ".UIjson.sections" ,
-       obj: ".UIjson.obj_UI" 
+       tabs: '.UIjson.nav-tabs' ,
+       sections: '.UIjson.sections' ,
+       obj: '.UIjson.obj_UI' 
      },
     dataHolder : {
-      tabName: "General" ,
-      path: false     ,
-      label: "&nbsp"   ,
-      arrEach: false     ,
-      options: false     ,
+      tabName: 'General' ,
+      path: false,
+      label: '&nbsp',
+      arrEach: false,
+      options: false,
       array_Api: {
-        sortable: true ,
-        add: true ,
+        sortable: true,
+        add: true,
         remove: true
       }
     }
