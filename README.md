@@ -77,7 +77,7 @@ var dataHolder = {
   path: '', // Path may be used when you add a nested object which is part of a bigger instance, to separate this dataholder from others if they have same properties.
   assignTo: 'input_field',   // How this property will be rendered in HTML.There a list of UI types in code architecture section of documentation.
   tabName: 'Bio',        // Default tab is 'General'. Only if tab with label 'Bio' is active you will be able to see the UI element for this property.
-   label: 'Person's Name', // Label text goes to "control-label" element of bootstrap.
+   label: 'Person"s Name', // Label text goes to "control-label" element of bootstrap.
    options: [],             // Options required if assignTo is "select_list", "radio" or "checkbox"
    arrEach: false,         // If true means that if the value of the object is an array of strings,each element of the array will be a seperate UI element in HTML
    array_Api: {              // It has meaning only if arrEach = true 
