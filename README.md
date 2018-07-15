@@ -47,13 +47,13 @@ First you need to include following files in head of your page for bootstrap,Jqu
 The main subject of UIjson are the properties which hold data.These 'dataholder' properties can have value of type string,number,boolean or an array of these types. Other properties will be ignored.
 
 ```js
-var example  = {
-       name      : "Julian",
-       age       : "20",
-       country   : "USA",
-       past_jobs : ["Philips","ikea","apple","microsoft"],
-       children  : [ {name:""},{name:""} ],
-       job       : {}
+var example = {
+  name: "Julian",
+  age: "20",
+  country: "USA",
+  past_jobs: [ "Philips", "ikea", "apple", "microsoft" ],
+  children: [ { name: "" }, { name: "" } ],
+  job: {}
 };								
 ```
 Properties : **job** and **childen** of example are not dataholder - properties because their values are not strings
@@ -66,17 +66,15 @@ To configure UIjson you will need to define a dataholder object for each propert
 //To define a dataholder Object you need at least to set these 2 properties, 'property' and 'assignTo'
 
 var dataHolder = { 
-
-   property:"name" , 
-   assignTo:"input_field" 
+  property: "name" , 
+  assignTo: "input_field" 
 };
 
 //And here the full options of dataholder Object
 
 var dataHolder = { 
-
-   property  :"name" ,        // the property
-   path      : "",            // Path may be used when you add a nested object which is part of a bigger instance, to separate this dataholder from others if they have same properties.
+  property:"name" ,        // the property
+  path: "",            // Path may be used when you add a nested object which is part of a bigger instance, to separate this dataholder from others if they have same properties.
    assignTo  :"input_field"   // How this property will be rendered in HTML.There a list of UI types in code architecture section of documentation.
    tabName   :"Bio"  ,        // Default tab is 'General'. Only if tab with label 'Bio' is active you will be able to see the UI element for this property.
    label     :"Person's Name" // Label text goes to 'control-label' element of bootstrap.
@@ -109,19 +107,18 @@ Lets configure and call UIjson now for model : exampleOb
 ```
 ```js
 var exampleOb  = {
-              name      : "Julian",
-              age       : "20",
-              country   : "USA",
-              past_jobs : ["Philips","ikea","apple","microsoft"]
+  name: "Julian",
+  age: "20",
+  country: "USA",
+  past_jobs: [ "Philips", "ikea", "apple", "microsoft" ]
 };
 
 var config = {  
-   "properties":  [
-		
-       { property:"name"      , assignTo:"input_field"    , label:"Person's Name" },	 
-       { property:"age"       , assignTo:"input_field"    , label:"Person's Age"  },
-       { property:"country"   , assignTo:"select_list"    , label:"Country"   , options:["SPAIN","USA","Brazil","Canada"] },
-       { property:"past_jobs" , assignTo:"textarea_field" , label:"Portfolio" },		
+  "properties":  [
+    { property:"name"      , assignTo:"input_field"    , label:"Person's Name" },	 
+    { property:"age"       , assignTo:"input_field"    , label:"Person's Age"  },
+    { property:"country"   , assignTo:"select_list"    , label:"Country"   , options:["SPAIN","USA","Brazil","Canada"] },
+    { property:"past_jobs" , assignTo:"textarea_field" , label:"Portfolio" },		
    ],								
    "_Objects"  : [{obj:exampleOb,path:""}]			
 };
@@ -162,14 +159,13 @@ All properties of AA will be compared by name and path with the defined Datahold
 #### Contructor
 ```js
    $.UIjson.Instance = function(){
-	          
-			  this.Settings     = "",
-			  this.Element      = null,
-	          this._Objects     = [],
-              this.ActiveTab    = "General",			  
-			  this.Tabs         = {},
-	          this.Sections     = {},
-			  this.Dataholders  = []
+     this.Settings = "",
+     this.Element = null,
+     this._Objects = [],
+     this.ActiveTab = "General",			  
+     this.Tabs = {},
+     this.Sections = {},
+     this.Dataholders = []
    };
 ```
 
@@ -177,30 +173,25 @@ All properties of AA will be compared by name and path with the defined Datahold
 
 ```js
 
-   $.UIjson.defaults = {
-
-						 binders     : {
-   
-							                 tabs       : ".UIjson.nav-tabs" ,
-											 sections   : ".UIjson.sections" ,
-											 obj        : ".UIjson.obj_UI" 
-						 },
-						 dataHolder : {
-						                     tabName    : "General" ,
-						                     path       : false     ,
-							                 label      : "&nbsp"   ,
-							                 arrEach    : false     ,
-											 options    : false     ,
-											 array_Api  : {
-											                sortable : true ,
-															add      : true ,
-															remove   : true
-											}
-
-
-
-						 }
-   }; 
+  $.UIjson.defaults = {
+     binders: {
+       tabs: ".UIjson.nav-tabs" ,
+       sections: ".UIjson.sections" ,
+       obj: ".UIjson.obj_UI" 
+     },
+    dataHolder : {
+      tabName: "General" ,
+      path: false     ,
+      label: "&nbsp"   ,
+      arrEach: false     ,
+      options: false     ,
+      array_Api: {
+        sortable: true ,
+        add: true ,
+        remove: true
+      }
+    }
+  }; 
 ```
 #### UI HTML Elements
 
